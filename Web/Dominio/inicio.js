@@ -81,11 +81,14 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .catch(error => console.error('Error fetching articulos:', error));
 });
-
-// Search functionality
-document.getElementById('searchButton').addEventListener('click', function() {
-    const searchTerm = document.getElementById('searchInput').value;
-    if (searchTerm) {
-        window.location.href = `productos.html?search=${encodeURIComponent(searchTerm)}`;
+const searchButton = document.getElementById('searchButton');
+    if (searchButton) {
+        searchButton.addEventListener('click', function() {
+            const searchTerm = document.getElementById('searchInput').value;
+            if (searchTerm) {
+                window.location.href = `productos.html?search=${encodeURIComponent(searchTerm)}`;
+            }
+        });
+    } else {
+        console.error('Element with id "searchButton" not found.');
     }
-});

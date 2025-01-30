@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     fetch('http://localhost:3000/api/categorias')
         .then(response => response.json())
         .then(categories => {
-            const sidebar = document.getElementById('sidebarMenu');
+            const sidebar = document.getElementById('categoryFilters');
             sidebar.innerHTML = ''; 
             categories.forEach(category => {
                 const categoryLink = document.createElement('a');
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to filter products by category
     function filterProductsByCategory(categoryId) {
-        fetch(`http://localhost:3000/api/articulos/${categoryId}`)
+        fetch(`http://localhost:3000/api/articulos/categorias/${categoryId}`)
             .then(response => response.json())
             .then(data => {
                 displayProducts(data);
@@ -87,7 +87,6 @@ document.addEventListener('DOMContentLoaded', function() {
             .catch(error => console.error('Error fetching products for sorting:', error));
     });
 
-    // Fetch individual product details if on productoDetalle.html
     const urlParams = new URLSearchParams(window.location.search);
     const productId = urlParams.get('id');
     if (productId) {
@@ -106,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <h5>Quedan ${product.stock} unidades disponibles</h5>
                     </div>
                     <div class="col-md-12">
-                    <h3>Descripcion</h3>
+                        <h3>Descripcion</h3>
                         <p>${product.descripcion}</p>
                         <p>Medidas: ${product.medidas} cm</p>
                         <p>Categoría: ${product.categoria_id}</p>
@@ -116,8 +115,6 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => console.error('Error fetching product details:', error));
     }
-
-    
 
     // Function to filter products by search term
     function filterProductsBySearchTerm(searchTerm, products) {
@@ -130,9 +127,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-document.getElementById('searchButton').addEventListener('click', function() {
-    const searchTerm = document.getElementById('searchInput').value;
-    if (searchTerm) {
-        window.location.href = `productos.html?search=${encodeURIComponent(searchTerm)}`;
-    }
-});
+const searchButton = document.getElementById('searchButton');
+if (searchButton) {
+    searchButton.addEventListener('click', function() {
+        const searchTerm = document.getElementById('searchInput').value;
+        if (searchTerm) {
+            window.location.href = `productos.html?search=${encodeURIComponent(searchTerm)}`;
+        }
+    });
+} else {
+    console.error('Element with id "searchButton" not found.');
+}

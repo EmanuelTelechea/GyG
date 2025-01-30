@@ -227,7 +227,7 @@ app.get('/api/categorias/:id', async (req, res) => {
   }
 });
 
-app.get('/api//categorias/:categoria_id', async (req, res) => {
+app.get('/api/articulos/categorias/:categoria_id', async (req, res) => {
   try {
     const { categoria_id } = req.params;
     const [articulos] = await pool.query(`
