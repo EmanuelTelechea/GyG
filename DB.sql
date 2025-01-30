@@ -22,4 +22,14 @@ ALTER TABLE articulos
 ADD CONSTRAINT fk_categoria
 FOREIGN KEY (categoria_id) REFERENCES categorias(id)
 ON DELETE CASCADE;
+alter table articulos drop column foto;
+ALTER TABLE articulos ADD COLUMN stock INT NOT NULL DEFAULT 0;
+
+CREATE TABLE imagenes_articulos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    articulo_id INT NOT NULL,
+    url VARCHAR(255) NOT NULL,
+    FOREIGN KEY (articulo_id) REFERENCES articulos(id) ON DELETE CASCADE
+);
+
 
