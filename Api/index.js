@@ -44,97 +44,111 @@ app.get('/', (req, res) => {
 });
 
 
-// Obtener todos los artículos con sus categorías
 app.get('/api/articulos', async (req, res) => {
   try {
-    const [resultados] = await pool.query(`
-      SELECT articulos.*, categorias.nombre AS categoria_nombre 
-      FROM articulos
-      LEFT JOIN categorias ON articulos.categoria_id = categorias.id
+    const [articulos] = await pool.query(`
+      SELECT 
+        a.id, 
+        a.nombre, 
+        a.descripcion, 
+        a.precio, 
+        a.stock, 
+        a.medidas, 
+        a.en_oferta, 
+        a.destacado, 
+        c.nombre AS categoria,
+        GROUP_CONCAT(i.url) AS imagenes
+      FROM articulos a
+      LEFT JOIN categorias c ON a.categoria_id = c.id
+      LEFT JOIN imagenes_articulos i ON a.id = i.articulo_id
+      GROUP BY a.id
     `);
+    const resultados = articulos.map(articulo => ({
+      ...articulo,
+      imagenes: articulo.imagenes ? articulo.imagenes.split(',') : []
+    }));
     res.json(resultados);
-  } catch (err) {
-    res.status(500).send('Error al obtener los artículos');
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al obtener los artículos' });
   }
 });
 
 // Crear un nuevo artículo
 app.post('/api/articulos', async (req, res) => {
-  const { nombre, descripcion, foto, precio, medidas, en_oferta, destacado, categoria_id } = req.body;
+  const { nombre, descripcion, precio, categoria_id, stock, medidas, en_oferta, destacado, imagenes } = req.body;
+  console.log(req.body); // Verificar qué datos están llegando
   try {
-    const [resultados] = await pool.query(
-      `INSERT INTO articulos (nombre, descripcion, foto, precio, medidas, en_oferta, destacado, categoria_id)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-      [nombre, descripcion, foto, precio, medidas, en_oferta || false, destacado || false, categoria_id]
+    const [result] = await pool.query(
+      'INSERT INTO articulos (nombre, descripcion, precio, categoria_id, stock, medidas, en_oferta, destacado) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+      [nombre, descripcion, precio, categoria_id, stock, medidas, en_oferta, destacado]
     );
-    res.status(201).json({ id: resultados.insertId, nombre });
-  } catch (err) {
-    res.status(500).send('Error al agregar el artículo');
+    const articuloId = result.insertId;
+    if (imagenes && imagenes.length > 0) {
+      for (const url of imagenes) {
+        await pool.query('INSERT INTO imagenes_articulos (articulo_id, url) VALUES (?, ?)', [articuloId, url]);
+      }
+    }
+    res.status(201).json({ mensaje: 'Artículo creado con éxito', articuloId });
+    } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error al crear el artículo' });
   }
 });
 
-// Actualizar un artículo
+// Actualizar un artículo con nuevas imágenes
 app.put('/api/articulos/:id', async (req, res) => {
   const { id } = req.params;
-  const { nombre, descripcion, foto, precio, medidas, en_oferta, destacado, categoria_id } = req.body;
+  const { nombre, descripcion, precio, categoria_id, stock, medidas, en_oferta, destacado, imagenes } = req.body;
 
   try {
-    const [resultados] = await pool.query(
-      `UPDATE articulos 
-       SET nombre = ?, descripcion = ?, foto = ?, precio = ?, medidas = ?, en_oferta = ?, destacado = ?, categoria_id = ?
-       WHERE id = ?`,
-      [nombre, descripcion, foto, precio, medidas, en_oferta, destacado, categoria_id, id]
+    await pool.query(
+      'UPDATE articulos SET nombre = ?, descripcion = ?, precio = ?, categoria_id = ?, stock = ?, medidas = ?, en_oferta = ?, destacado = ? WHERE id = ?',
+      [nombre, descripcion, precio, categoria_id, stock, medidas, en_oferta, destacado, id]
     );
-
-    if (resultados.affectedRows === 0) {
-      return res.status(404).send('Artículo no encontrado');
+    await pool.query('DELETE FROM imagenes_articulos WHERE articulo_id = ?', [id]);
+    if (imagenes && imagenes.length > 0) {
+      for (const url of imagenes) {
+        await pool.query('INSERT INTO imagenes_articulos (articulo_id, url) VALUES (?, ?)', [id, url]);
+      }
     }
-
-    res.json({ mensaje: 'Artículo actualizado correctamente', id });
+    res.json({ mensaje: 'Artículo actualizado con éxito' });
   } catch (err) {
-    res.status(500).send('Error al actualizar el artículo');
+    console.error(err);
+    res.status(500).json({ error: 'Error al actualizar el artículo' });
   }
 });
 
-// Eliminar un artículo
+// Eliminar un artículo y sus imágenes
 app.delete('/api/articulos/:id', async (req, res) => {
   const { id } = req.params;
-
   try {
-    const [resultados] = await pool.query('DELETE FROM articulos WHERE id = ?', [id]);
-
-    if (resultados.affectedRows === 0) {
-      return res.status(404).send('Artículo no encontrado');
-    }
-
-    res.json({ mensaje: 'Artículo eliminado correctamente' });
+    await pool.query('DELETE FROM articulos WHERE id = ?', [id]);
+    res.json({ mensaje: 'Artículo eliminado con éxito' });
   } catch (err) {
-    res.status(500).send('Error al eliminar el artículo');
+    console.error(err);
+    res.status(500).json({ error: 'Error al eliminar el artículo' });
   }
 });
 
-// Obtener un artículo específico por ID
+// Obtener un artículo por ID con sus imágenes
 app.get('/api/articulos/:id', async (req, res) => {
   const { id } = req.params;
 
   try {
-    const [articulo] = await pool.query(`
-      SELECT articulos.*, categorias.nombre AS categoria_nombre 
-      FROM articulos 
-      LEFT JOIN categorias ON articulos.categoria_id = categorias.id 
-      WHERE articulos.id = ?`, [id]);
-
-
+    const [articulo] = await pool.query('SELECT * FROM articulos WHERE id = ?', [id]);
     if (articulo.length === 0) {
       return res.status(404).json({ error: 'Artículo no encontrado' });
     }
-
-    res.json(articulo[0]); // Retorna el artículo encontrado
+    const [imagenes] = await pool.query('SELECT url FROM imagenes_articulos WHERE articulo_id = ?', [id]);
+    articulo[0].imagenes = imagenes.map(img => img.url);
+    res.json(articulo[0]);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Error al obtener el artículo' });
   }
 });
+
 
 // Obtener todas las categorías
 app.get('/api/categorias', async (req, res) => {
@@ -213,29 +227,105 @@ app.get('/api/categorias/:id', async (req, res) => {
   }
 });
 
+app.get('/api//categorias/:categoria_id', async (req, res) => {
+  try {
+    const { categoria_id } = req.params;
+    const [articulos] = await pool.query(`
+      SELECT 
+        a.id, 
+        a.nombre, 
+        a.descripcion, 
+        a.precio, 
+        a.stock, 
+        a.medidas, 
+        a.en_oferta, 
+        a.destacado, 
+        c.nombre AS categoria,
+        GROUP_CONCAT(i.url) AS imagenes
+      FROM articulos a
+      LEFT JOIN categorias c ON a.categoria_id = c.id
+      LEFT JOIN imagenes_articulos i ON a.id = i.articulo_id
+      WHERE a.categoria_id = ?
+      GROUP BY a.id
+    `, [categoria_id]);
+    const resultados = articulos.map(articulo => ({
+      ...articulo,
+      imagenes: articulo.imagenes ? articulo.imagenes.split(',') : []
+    }));
+    res.json(resultados);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al obtener los artículos por categoría' });
+  }
+});
+
 
 
 // Obtener productos destacados
 app.get('/api/destacados', async (req, res) => {
-    try {
-        const [resultados] = await pool.query(`SELECT * FROM articulos WHERE destacado = true`);
-        res.json(resultados);
-    } catch (err) {
-        res.status(500).send('Error al obtener los productos destacados');
-    }
+  try {
+    const [articulos] = await pool.query(`
+      SELECT 
+        a.id, 
+        a.nombre, 
+        a.descripcion, 
+        a.precio, 
+        a.stock, 
+        a.medidas, 
+        a.en_oferta, 
+        a.destacado, 
+        c.nombre AS categoria,
+        GROUP_CONCAT(i.url) AS imagenes
+      FROM articulos a
+      LEFT JOIN categorias c ON a.categoria_id = c.id
+      LEFT JOIN imagenes_articulos i ON a.id = i.articulo_id
+      WHERE a.destacado = 1
+      GROUP BY a.id
+    `);
+    const resultados = articulos.map(articulo => ({
+      ...articulo,
+      imagenes: articulo.imagenes ? articulo.imagenes.split(',') : []
+    }));
+    res.json(resultados);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al obtener los artículos destacados' });
+  }
 });
+
 
 // Obtener productos en oferta
 app.get('/api/en-oferta', async (req, res) => {
-    try {
-        const [resultados] = await pool.query(`SELECT * FROM articulos WHERE en_oferta = true`);
-        res.json(resultados);
-    } catch (err) {
-        res.status(500).send('Error al obtener los productos en oferta');
-    }
+  try {
+    const [articulos] = await pool.query(`
+      SELECT 
+        a.id, 
+        a.nombre, 
+        a.descripcion, 
+        a.precio, 
+        a.stock, 
+        a.medidas, 
+        a.en_oferta, 
+        a.destacado, 
+        c.nombre AS categoria,
+        GROUP_CONCAT(i.url) AS imagenes
+      FROM articulos a
+      LEFT JOIN categorias c ON a.categoria_id = c.id
+      LEFT JOIN imagenes_articulos i ON a.id = i.articulo_id
+      WHERE a.en_oferta = 1
+      GROUP BY a.id
+    `);
+    const resultados = articulos.map(articulo => ({
+      ...articulo,
+      imagenes: articulo.imagenes ? articulo.imagenes.split(',') : []
+    }));
+    res.json(resultados);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al obtener los artículos en oferta' });
+  }
 });
 
-// Other existing routes...
 
 // Iniciar el servidor
 app.listen(PORT, () => {

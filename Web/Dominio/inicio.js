@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 slideContent += `
                     <div class="col-md-3 mb-4">
                         <div class="card articulo-card">
-                            <img alt="${articulo.nombre}" class="card-img-top" height="300" src="${articulo.foto}" width="300"/>
+                            <img alt="${articulo.nombre}" class="card-img-top" height="300" src="${articulo.imagenes.url}" width="300"/>
                             <div class="card-body">
                                 <h5 class="card-title">${articulo.nombre}</h5>
                                 <p class="card-text">$${articulo.precio}</p>
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 slideContent += `
                     <div class="col-md-3 mb-4">
                         <div class="card articulo-card">
-                            <img alt="${articulo.nombre}" class="card-img-top" height="300" src="${articulo.foto}" width="300"/>
+                            <img alt="${articulo.nombre}" class="card-img-top" height="300" src="${articulo.imagenes}" width="300"/>
                             <div class="card-body">
                                 <h5 class="card-title">${articulo.nombre}</h5>
                                 <p class="card-text">$${articulo.precio}</p>
@@ -80,4 +80,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     })
     .catch(error => console.error('Error fetching articulos:', error));
+});
+
+// Search functionality
+document.getElementById('searchButton').addEventListener('click', function() {
+    const searchTerm = document.getElementById('searchInput').value;
+    if (searchTerm) {
+        window.location.href = `productos.html?search=${encodeURIComponent(searchTerm)}`;
+    }
 });
