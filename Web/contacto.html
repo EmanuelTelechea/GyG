@@ -3,7 +3,7 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>
-        G&amp;G Artesanias en Madera - Contacto
+        G&amp;G Artesanias en Madera - Contáctanos
     </title>
     <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
@@ -13,8 +13,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="index.html">
-            <img src="img/logo.png" alt="Logo de la tienda" width="25%">
-            G&amp;G Artesanias en Madera
+            <img src="img/logo.png" alt="Logo de la tienda" width="50%">
         </a>
         <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button">
             <span class="navbar-toggler-icon"></span>
@@ -44,8 +43,8 @@
     </div>
 </nav>
 <div class="container mt-4">
-    <h2 class="fw-bold">Contacto</h2>
-    <form>
+    <h1 class="fw-bold">Contáctanos</h1>
+    <form id="contactForm">
         <div class="mb-3">
             <label for="name" class="form-label">Nombre</label>
             <input type="text" class="form-control" id="name" required>
@@ -56,10 +55,11 @@
         </div>
         <div class="mb-3">
             <label for="message" class="form-label">Mensaje</label>
-            <textarea class="form-control" id="message" rows="4" required></textarea>
+            <textarea class="form-control" id="message" rows="3" required></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Enviar</button>
     </form>
+    <div id="formResponse" class="mt-3"></div>
 </div>
 <footer class="footer">
     <div class="container">
@@ -77,6 +77,7 @@
         </div>
     </div>
 </footer>
-<script src="Dominio/productos.js"></script>
+<script crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="Dominio/contacto.js"></script>
 </body>
 </html>

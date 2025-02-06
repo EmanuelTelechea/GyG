@@ -2,6 +2,7 @@ import express from 'express';
 import mysql from 'mysql2/promise';
 import bodyParser from 'body-parser';
 import multer from 'multer';
+import nodemailer from 'nodemailer';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
@@ -326,6 +327,34 @@ app.get('/api/en-oferta', async (req, res) => {
   }
 });
 
+app.post('/api/contacto', (req, res) => {
+    const { name, email, message } = req.body;
+
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'emanueltelechea05@gmail.com', // Reemplaza con tu correo
+            pass: 'Diplomas' // Reemplaza con tu contraseña
+        }
+    });
+
+    const mailOptions = {
+        from: email,
+        to: 'emanueltelechea05@gmail.com', // Reemplaza con tu correo
+        subject: `Nuevo mensaje de contacto de ${name}`,
+        text: `Nombre: ${name}\nCorreo: ${email}\nMensaje: ${message}`
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.error('Error al enviar el correo:', error);
+            res.status(500).json({ error: 'Error al enviar el correo' });
+        } else {
+            console.log('Correo enviado:', info.response);
+            res.status(200).json({ message: 'Correo enviado con éxito' });
+        }
+    });
+});
 
 // Iniciar el servidor
 app.listen(PORT, () => {

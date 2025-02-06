@@ -13,8 +13,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="index.html">
-            <img src="img/logo.png" alt="Logo de la tienda" width="25%">
-            G&amp;G Artesanias en Madera
+            <img src="img/logo.png" alt="Logo de la tienda" width="50%">
         </a>
         <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button">
             <span class="navbar-toggler-icon"></span>
@@ -44,10 +43,8 @@
     </div>
 </nav>
 <div class="container mt-4">
-    <h2 class="fw-bold">Ubicacion</h2>
-    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quisquam, adipisci delectus tenetur doloribus odit exercitationem amet impedit, a explicabo reprehenderit ipsum eligendi! Ullam nostrum sint dolor libero id laboriosam explicabo. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quis magni vel corrupti exercitationem, pariatur cupiditate architecto error sapiente expedita in non sed odit commodi similique, harum dolorum aliquam consequuntur autem. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque laudantium tempora ab, at dolore veniam. Harum sequi minima nulla aut, officiis deserunt! Laudantium ratione, obcaecati quia exercitationem optio similique est.</p>
-    <br>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, quae! Eum ut temporibus, error dolorum aspernatur praesentium in, ab tenetur corporis earum quidem accusantium iusto beatae cupiditate possimus atque reprehenderit. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor veniam officiis cumque earum assumenda aut modi quisquam voluptas ex eos, cupiditate iusto provident a pariatur? Suscipit inventore hic quas aliquid. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Reprehenderit fugit similique dignissimos ducimus aliquam molestias animi mollitia, perferendis aliquid asperiores unde accusantium, officia deleniti necessitatibus impedit corrupti. Nostrum, corporis fuga.</p>
+    <h1 class="fw-bold">Ubicacion</h1>
+    <div id="map" style="height: 400px; width: 100%;"></div> <!-- Mapa de Google Maps -->
 </div>
 <footer class="footer">
     <div class="container">
@@ -66,5 +63,19 @@
     </div>
 </footer>
 <script src="Dominio/productos.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_VALID_API_KEY&callback=initMap" async defer></script>
+<script>
+    function initMap() {
+        const location = { lat: -34.311902, lng: -57.354825 }; // Coordenadas de ejemplo
+        const map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 8,
+            center: location
+        });
+        const marker = new google.maps.Marker({
+            position: location,
+            map: map
+        });
+    }
+</script>
 </body>
 </html>

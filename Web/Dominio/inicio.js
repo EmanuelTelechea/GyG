@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (Array.isArray(data)) {
             let slideContent = '';
             data.forEach((articulo, index) => {
-                if (index % 4 === 0) {
+                if (index % 1 === 0) { // Cambiar de uno en uno
                     if (slideContent) {
                         articuloList.innerHTML += slideContent;
                     }
@@ -18,17 +18,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 slideContent += `
                     <div class="col-md-3 mb-4">
-                        <div class="card articulo-card">
+                        <div class="card articulo-card" onclick="window.location.href='productoDetalle.html?id=${articulo.id}'">
                             <img alt="${articulo.nombre}" class="card-img-top" height="300" src="${articulo.imagenes.url}" width="300"/>
                             <div class="card-body">
                                 <h5 class="card-title">${articulo.nombre}</h5>
                                 <p class="card-text">$${articulo.precio}</p>
-                                <a href="productoDetalle.html?id=${articulo.id}" class="btn btn-primary">Ver Detalles</a>
                             </div>
                         </div>
                     </div>
                 `;
-                if (index % 4 === 3 || index === data.length - 1) {
+                if (index % 1 === 0 || index === data.length - 1) { // Cambiar de uno en uno
                     slideContent += `</div></div>`;
                 }
             });
@@ -52,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (Array.isArray(data)) {
             let slideContent = '';
             data.forEach((articulo, index) => {
-                if (index % 4 === 0) {
+                if (index % 1 === 0) { // Cambiar de uno en uno
                     if (slideContent) {
                         articuloList.innerHTML += slideContent;
                     }
@@ -60,17 +59,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 slideContent += `
                     <div class="col-md-3 mb-4">
-                        <div class="card articulo-card">
+                        <div class="card articulo-card" onclick="window.location.href='productoDetalle.html?id=${articulo.id}'">
                             <img alt="${articulo.nombre}" class="card-img-top" height="300" src="${articulo.imagenes}" width="300"/>
                             <div class="card-body">
                                 <h5 class="card-title">${articulo.nombre}</h5>
                                 <p class="card-text">$${articulo.precio}</p>
-                                <a href="productoDetalle.html?id=${articulo.id}" class="btn btn-primary">Ver Detalles</a>
                             </div>
                         </div>
                     </div>
                 `;
-                if (index % 4 === 3 || index === data.length - 1) {
+                if (index % 1 === 0 || index === data.length - 1) { // Cambiar de uno en uno
                     slideContent += `</div></div>`;
                 }
             });
@@ -81,14 +79,15 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .catch(error => console.error('Error fetching articulos:', error));
 });
+
 const searchButton = document.getElementById('searchButton');
-    if (searchButton) {
-        searchButton.addEventListener('click', function() {
-            const searchTerm = document.getElementById('searchInput').value;
-            if (searchTerm) {
-                window.location.href = `productos.html?search=${encodeURIComponent(searchTerm)}`;
-            }
-        });
-    } else {
-        console.error('Element with id "searchButton" not found.');
-    }
+if (searchButton) {
+    searchButton.addEventListener('click', function() {
+        const searchTerm = document.getElementById('searchInput').value;
+        if (searchTerm) {
+            window.location.href = `productos.html?search=${encodeURIComponent(searchTerm)}`;
+        }
+    });
+} else {
+    console.error('Element with id "searchButton" not found.');
+}

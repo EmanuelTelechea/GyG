@@ -7,12 +7,16 @@ body {
     display: flex;
     margin-left: auto;
     margin-right: auto;
+    position: sticky; /* Hacer que el header sea fijo */
+    top: 0; /* Posicionarlo en la parte superior */
+    z-index: 1000; /* Asegurarse de que esté por encima de otros elementos */
 }
 .navbar-brand {
     font-weight: bold;
     color: #000000;
     font-style: normal;
     font-size: large;
+    margin-left: 50px;
 }
 .navbar-brand:hover {
     color: #ffffff;
@@ -63,7 +67,7 @@ body {
 }
 .product-card .card-text {
     color: #007bff;
-    font-weight: 500;
+    font-weight: bold;
 }
 .sort-button {
     background-color: #f1f3f5;
@@ -163,7 +167,7 @@ input[type="search"]:focus {
 }
 #presentacion{
     width: 100%;
-    height: 50vh;
+    height: 85vh;
     flex-direction: column; 
     justify-content: center;
     align-content: center;
@@ -180,7 +184,6 @@ input[type="search"]:focus {
     padding: 100px;
     text-align: center;
 }
-/* From Uiverse.io by elijahgummer */ 
 .styled-button {
     position: relative;
     padding: 1rem 2rem;
@@ -255,3 +258,308 @@ input[type="search"]:focus {
       drop-shadow(0 0 20px rgba(2, 2, 2, 1));
     transform: rotate(-35deg);
   }
+
+@media (max-width: 768px) {
+    .carousel-inner .carousel-item {
+        display: block;
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    .carousel-inner .carousel-item.active,
+    .carousel-inner .carousel-item-next,
+    .carousel-inner .carousel-item-prev {
+        display: block !important;
+    }
+}
+
+/* Custom styles for carousel controls */
+.custom-carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 60px; /* Más altas que largas */
+    background-color: rgba(0, 0, 0, 0.8); /* Más oscuro */
+    border-radius: 5px; /* Más rectangulares */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.carousel-control-prev.custom-carousel-control {
+    left: -25px;
+}
+
+.carousel-control-next.custom-carousel-control {
+    right: -25px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.carousel {
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+.product-section h2 {
+    margin-left: 20px; /* Alinear con los bordes de los carruseles */
+    text-align: left; /* Alinear a la izquierda */
+    font-family: 'Georgia', serif; /* Cambiar la fuente */
+    font-size: 2rem; /* Ajustar el tamaño de la fuente */
+    margin-bottom: 1.5rem; /* Ajustar la separación inferior */
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#Contáctanos {
+    background-color: #f8f9fa;
+    width: 100%;
+    padding: 40px 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+#Contáctanos h2 {
+    font-family: 'Georgia', serif;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+#Contáctanos p {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+#Contáctanos button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#Contáctanos button:hover {
+    background-color: #0056b3;
+}
+
+#featured-carousel {
+    border: 3px solid #333; /* Borde más oscuro y grueso */
+    background-color: #e9ecef; /* Fondo de color más oscuro */
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+#offer-carousel {
+    border: 3px solid #333; /* Borde más oscuro y grueso */
+    background-color: #ffffff; /* Fondo blanco */
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.carousel-container {
+    background-color: #e9ecef; /* Fondo de color más oscuro */
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.carousel-container h2 {
+    margin: 0;
+    padding: 10px;
+    background-color: #e9ecef; /* Fondo de color más oscuro */
+    border-radius: 10px 10px 0 0;
+}
+
+.articulo-card {
+    border: none; /* Quitar el borde */
+    border-radius: 10px;
+    box-shadow: none; /* Quitar la sombra */
+    transition: transform 0.2s, box-shadow 0.2s; /* Transición para el efecto hover */
+    cursor: pointer; /* Cambiar el puntero */
+}
+
+.articulo-card:hover {
+    transform: scale(1.05); /* Aumentar ligeramente el tamaño */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Agregar sombra */
+}
+
+#main-product-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.img-thumbnail {
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.img-thumbnail:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.product-card img, #main-product-image {
+    width: 100%;
+    height: 400px; 
+    object-fit: cover;
+}
+.img-thumbnail{
+    width: 100%;
+    height: 50px; 
+    object-fit: cover;
+}
+
+#product-details {
+    margin-top: 20px;
+}
+
+#product-info {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+}
+
+#product-info h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#product-info h3 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+#product-info h5 {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+#product-info p {
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.5;
+}
+
+#product-info .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#product-info .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+#product-description {
+    padding: 30px; 
+    border-radius: 10px;
+    margin-top: 30px; 
+    text-align: left;
+}
+
+#product-description h3 {
+    font-size: 2rem; 
+    font-weight: bold;
+    margin-bottom: 20px; 
+    text-decoration: underline; 
+}
+
+#product-description p {
+    font-size: 1.2rem; 
+    color: #333;
+    line-height: 1.5;
+}
+
+#related-products h3 {
+    font-size: 2rem; 
+    font-weight: bold;
+    margin-bottom: 20px; 
+    text-decoration: underline; 
+    margin-top: 30px;
+}
+
+#related-products-carousel {
+    margin-left: 0; /* Alinear el slider más a la izquierda */
+}
+
+.chatbot {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 350px; /* Aumentar el ancho */
+    background-color: #f8f9fa; /* Cambiar el color de fondo */
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: none;
+    flex-direction: column;
+    z-index: 1001;
+}
+
+.chatbot-header {
+    background-color: #28a745; /* Cambiar el color de fondo a verde */
+    color: #fff;
+    padding: 15px; /* Aumentar el padding */
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chatbot-body {
+    padding: 15px; /* Aumentar el padding */
+    max-height: 350px; /* Aumentar la altura máxima */
+    overflow-y: auto;
+}
+
+.chatbot-footer {
+    padding: 15px; /* Aumentar el padding */
+    display: flex;
+    align-items: center;
+}
+
+.chatbot-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background-color: #28a745; /* Cambiar el color de fondo a verde */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.chatbot-button:hover {
+    background-color: #218838; /* Cambiar el color de fondo al pasar el ratón */
+}
+
+#faqList {
+    list-style-type: none;
+    padding: 0;
+}
+
+#faqList li {
+    margin-bottom: 10px;
+}
+
