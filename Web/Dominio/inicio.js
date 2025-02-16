@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('http://localhost:3000/api/destacados')
+    fetch('http://gyg-production-312a.up.railway.app:3000/api/destacados')
     .then(response => response.json())
     .then(data => {
         const articuloList = document.getElementById('featured-articulo-list');

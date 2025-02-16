@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const email = formData.get('email');
         const message = formData.get('message');
 
-        fetch('http://localhost:3000/api/contacto', {
+        fetch('http://gyg-production-312a.up.railway.app:3000/api/contacto', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

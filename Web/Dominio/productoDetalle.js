@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const productId = urlParams.get('id');
 
     if (productId) {
-        fetch(`http://localhost:3000/api/articulos/${productId}`)
+        fetch(`http://gyg-production-312a.up.railway.app:3000/api/articulos/${productId}`)
             .then(response => response.json())
             .then(product => {
                 const imageUrl = product.imagenes.length > 0 ? product.imagenes[0] : 'default-image.jpg'; // Fallback image
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('product-details').innerHTML = productDetails;
 
                 // Fetch related products
-                fetch(`http://localhost:3000/api/articulos/categorias/${product.categoria_id}`)
+                fetch(`http://gyg-production-312a.up.railway.app:3000/api/articulos/categorias/${product.categoria_id}`)
                     .then(response => response.json())
                     .then(relatedProducts => {
                         displayRelatedProducts(relatedProducts, productId);
