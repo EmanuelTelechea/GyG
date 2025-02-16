@@ -1,5 +1,5 @@
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Open Sans', sans-serif; /* Cambiar la fuente principal */
     background-color: #f8f9fa;
 }
 .navbar {
@@ -23,7 +23,7 @@ body {
 }
 .nav-link {
     color: #000;
-    font-family: fantasy;
+    font-family: 'Open Sans', sans-serif; /* Cambiar la fuente de los enlaces de navegación */
     font-size: large;
 }
 .nav-link:hover {
@@ -95,6 +95,7 @@ body {
 }
 .fw-bold {
     text-align: center;
+    font-family: 'Merriweather', serif; /* Cambiar la fuente de los títulos */
 }
 
 /* Styles for the carousel */
@@ -168,10 +169,38 @@ input[type="search"]:focus {
 #presentacion{
     width: 100%;
     height: 85vh;
-    flex-direction: column; 
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    align-items: flex-start; /* Mover el contenido hacia arriba */
     justify-content: center;
+    position: relative;
+    overflow: hidden;
+    flex-direction: column;
     align-content: center;
 }
+
+#presentacion .row {
+    width: 100%;
+    display: flex;
+}
+
+#presentacion .col-md-6 {
+    padding: 20px;
+}
+
+#presentacion h1 {
+    font-family: 'Playfair Display', serif;
+    color: #343a40;
+}
+
+#presentacion p {
+    font-family: 'Roboto', sans-serif;
+    color: #6c757d;
+    line-height: 1.6;
+}
+
 .product-info{
     display: flex;
     width: 100%;
@@ -309,7 +338,7 @@ input[type="search"]:focus {
 .product-section h2 {
     margin-left: 20px; /* Alinear con los bordes de los carruseles */
     text-align: left; /* Alinear a la izquierda */
-    font-family: 'Georgia', serif; /* Cambiar la fuente */
+    font-family: 'Merriweather', serif; /* Cambiar la fuente */
     font-size: 2rem; /* Ajustar el tamaño de la fuente */
     margin-bottom: 1.5rem; /* Ajustar la separación inferior */
     padding: 10px;
@@ -317,16 +346,20 @@ input[type="search"]:focus {
 }
 
 #Contáctanos {
-    background-color: #f8f9fa;
+    background-color: #00000018;
     width: 100%;
+    height: 50vh;
     padding: 40px 20px;
     border-radius: 10px;
     margin-top: 20px;
+    flex-direction: column; 
+    justify-content: center;
+    align-content: center;
     text-align: center;
 }
 
 #Contáctanos h2 {
-    font-family: 'Georgia', serif;
+    font-family: 'Merriweather', serif;
     font-size: 2rem;
     margin-bottom: 1rem;
 }
@@ -349,6 +382,18 @@ input[type="search"]:focus {
 
 #Contáctanos button:hover {
     background-color: #0056b3;
+}
+
+#testimonios{
+    background-color: #f8f9fa;
+    width: 100%;
+    height: 50vh;
+    padding: 40px 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    flex-direction: column; 
+    justify-content: center;
+    align-content: center;
 }
 
 #featured-carousel {
@@ -398,11 +443,13 @@ input[type="search"]:focus {
     width: 100%;
     height: auto;
     border-radius: 10px;
+    background-color: #ffffff; /* Fondo blanco */
 }
 
 .img-thumbnail {
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
+    background-color: #ffffff; /* Fondo blanco */
 }
 
 .img-thumbnail:hover {
@@ -412,13 +459,18 @@ input[type="search"]:focus {
 
 .product-card img, #main-product-image {
     width: 100%;
-    height: 400px; 
-    object-fit: cover;
+    height: auto; /* Ajustar la altura automáticamente */
+    max-height: 400px; /* Limitar la altura máxima */
+    object-fit: contain; /* Ajustar la imagen para que se vea completa */
+    background-color: #ffffff; /* Fondo blanco */
 }
-.img-thumbnail{
+
+.img-thumbnail {
     width: 100%;
-    height: 50px; 
-    object-fit: cover;
+    height: auto; /* Ajustar la altura automáticamente */
+    max-height: 50px; /* Limitar la altura máxima */
+    object-fit: contain; /* Ajustar la imagen para que se vea completa */
+    background-color: #ffffff; /* Fondo blanco */
 }
 
 #product-details {

@@ -69,13 +69,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function displayRelatedProducts(products, currentProductId) {
         const relatedProductsList = document.getElementById('related-products-list');
+        const prevButton = document.querySelector('#related-products-carousel .carousel-control-prev');
+        const nextButton = document.querySelector('#related-products-carousel .carousel-control-next');
         relatedProductsList.innerHTML = ''; // Clear existing products
         if (Array.isArray(products)) {
             let slideContent = '';
             products.forEach((product, index) => {
                 if (product.id !== currentProductId) { // Exclude the current product
                     const imageUrl = product.imagenes.length > 0 ? product.imagenes[0] : 'default-image.jpg'; // Fallback image
-                    if (index % 1 === 0) { // Cambiar de uno en uno
+                    if (index % 4 === 0) {
                         if (slideContent) {
                             relatedProductsList.innerHTML += slideContent;
                         }
@@ -92,12 +94,18 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                         </div>
                     `;
-                    if (index % 1 === 0 || index === products.length - 1) { // Cambiar de uno en uno
+                    if (index % 4 === 3 || index === products.length - 1) {
                         slideContent += `</div></div>`;
                     }
                 }
             });
             relatedProductsList.innerHTML += slideContent;
+
+            // Ocultar flechas si hay 4 o menos elementos
+            if (products.length <= 4) {
+                prevButton.style.display = 'none';
+                nextButton.style.display = 'none';
+            }
         } else {
             console.error('No related products found in the response.');
         }
