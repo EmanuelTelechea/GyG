@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('http://gyg-production-312a.up.railway.app:3000/api/destacados')
+    fetch('http://gyg-production-312a.up.railway.app/api/destacados')
     .then(response => response.json())
     .then(data => {
         const articuloList = document.getElementById('featured-articulo-list');
@@ -52,7 +52,7 @@ document.getElementById('searchInput').addEventListener('keypress', function(eve
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    fetch('http://localhost:3000/api/en-oferta')
+    fetch('http://gyg-production-312a.up.railway.app/api/en-oferta')
     .then(response => response.json())
     .then(data => {
         const articuloList = document.getElementById('articulo-en-oferta');

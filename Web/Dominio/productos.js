@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Fetch all categories and populate the sidebar
-    fetch('http://gyg-production-312a.up.railway.app:3000/api/categorias')
+    fetch('http://gyg-production-312a.up.railway.app/api/categorias')
         .then(response => response.json())
         .then(categories => {
             const sidebar = document.getElementById('categoryFilters');
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => console.error('Error fetching categories:', error));
 
     // Fetch all products
-    fetch('http://gyg-production-312a.up.railway.app:3000/api/articulos')
+    fetch('http://gyg-production-312a.up.railway.app/api/articulos')
         .then(response => response.json())
         .then(data => {
             displayProducts(data);
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to fetch and display all products
     function fetchAllProducts() {
-        fetch('http://gyg-production-312a.up.railway.app:3000/api/articulos')
+        fetch('http://gyg-production-312a.up.railway.app/api/articulos')
             .then(response => response.json())
             .then(data => {
                 displayProducts(data);
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to filter products by category
     function filterProductsByCategory(categoryId) {
         document.getElementById('articulo-list').setAttribute('data-category-id', categoryId);
-        fetch(`http://gyg-production-312a.up.railway.app:3000/api/articulos/categorias/${categoryId}`)
+        fetch(`http://gyg-production-312a.up.railway.app/api/articulos/categorias/${categoryId}`)
             .then(response => response.json())
             .then(data => {
                 displayProducts(data);
@@ -93,10 +93,10 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('sortOptions').addEventListener('change', function() {
         const sortValue = this.value;
         const categoryId = document.getElementById('articulo-list').getAttribute('data-category-id');
-        let fetchUrl = 'http://gyg-production-312a.up.railway.app:3000/api/articulos';
+        let fetchUrl = 'http://gyg-production-312a.up.railway.app/api/articulos';
 
         if (categoryId) {
-            fetchUrl = `http://gyg-production-312a.up.railway.app:3000/api/articulos/categorias/${categoryId}`;
+            fetchUrl = `http://gyg-production-312a.up.railway.app/api/articulos/categorias/${categoryId}`;
         }
 
         fetch(fetchUrl)
