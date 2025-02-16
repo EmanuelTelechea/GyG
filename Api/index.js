@@ -6,25 +6,31 @@ import nodemailer from 'nodemailer';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
-// Cargar variables de entorno
 dotenv.config();
 
 const app = express();
-const PORT = 3000;
-
-// Configurar conexión a MySQL con pool
-const pool = mysql.createPool({
-    host: `tramway.proxy.rlwy.net`, 
-    user: `root`,
-    password: `JZpnHgdPhluDDBeJZDPTSwwSCPaaRVBK`,
-    database: `GGart_db`,
-    port: 23747
-});
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
 app.use('/uploads', express.static('uploads'));
+
+// Configurar conexión a MySQL con pool
+const pool = mysql.createPool({
+    host: process.env.DB_HOST || 'tramway.proxy.rlwy.net',
+    user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASSWORD || 'JZpnHgdPhluDDBeJZDPTSwwSCPaaRVBK',
+    database: process.env.DB_NAME || 'GGart_db',
+    port: process.env.DB_PORT || 23747
+});
+
+// Configuración avanzada de CORS
+app.use(cors({
+    origin: '*', 
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 // Verificar conexión a MySQL al iniciar
 (async () => {
