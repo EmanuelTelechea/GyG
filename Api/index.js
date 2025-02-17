@@ -8,7 +8,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 23747;
 
 // Middleware
 app.use(bodyParser.json());
@@ -27,7 +27,6 @@ const pool = mysql.createPool({
 // Configuración avanzada de CORS
 app.use(cors({
     origin: 'gyg-production-312a.up.railway.app', // Permitir solicitudes de cualquier origen
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
