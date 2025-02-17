@@ -10,7 +10,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
-const PORT = 23747;
+const PORT = 3000;
 
 // Configurar conexión a MySQL con pool
 const pool = mysql.createPool({
