@@ -358,6 +358,6 @@ app.post('/api/contacto', (req, res) => {
 });
 
 // Iniciar el servidor
-app.listen(23747, () => {
-  console.log(`Servidor corriendo en http://localhost:${23747}`);
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
