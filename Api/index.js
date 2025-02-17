@@ -6,29 +6,25 @@ import nodemailer from 'nodemailer';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
+// Cargar variables de entorno
 dotenv.config();
+
 const app = express();
-const PORT = process.env.PORT || 23747;
+const PORT = 23747;
+
+// Configurar conexión a MySQL con pool
+const pool = mysql.createPool({
+    host: `tramway.proxy.rlwy.net`, 
+    user: `root`,
+    password: `JZpnHgdPhluDDBeJZDPTSwwSCPaaRVBK`,
+    database: `GGart_db`,
+    port: 23747
+});
 
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
 app.use('/uploads', express.static('uploads'));
-
-// Configurar conexión a MySQL con pool
-const pool = mysql.createPool({
-    host: process.env.DB_HOST || 'tramway.proxy.rlwy.net',
-    user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || 'JZpnHgdPhluDDBeJZDPTSwwSCPaaRVBK',
-    database: process.env.DB_NAME || 'GGart_db',
-    port: process.env.DB_PORT || 23747
-});
-
-// Configuración avanzada de CORS
-app.use(cors({
-    origin: 'gyg-production-312a.up.railway.app', // Permitir solicitudes de cualquier origen
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
 
 // Verificar conexión a MySQL al iniciar
 (async () => {
@@ -362,6 +358,6 @@ app.post('/api/contacto', (req, res) => {
 });
 
 // Iniciar el servidor
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+app.listen(23747, () => {
+  console.log(`Servidor corriendo en http://localhost:${23747}`);
 });
