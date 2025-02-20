@@ -6,6 +6,7 @@ import nodemailer from 'nodemailer';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
+
 // Cargar variables de entorno
 dotenv.config();
 
@@ -355,6 +356,13 @@ app.post('/api/contacto', (req, res) => {
             res.status(200).json({ message: 'Correo enviado con éxito' });
         }
     });
+});
+
+const upload = multer({ dest: 'uploads/' });
+
+// Ruta para subir imágenes
+app.post('/api/articulos/foto', upload.single('foto'), (req, res) => {
+  res.json({ mensaje: 'Imagen subida exitosamente', path: req.file.path });
 });
 
 // Iniciar el servidor
