@@ -360,7 +360,7 @@ app.post('/api/contacto', (req, res) => {
 });
 
 // Ruta para subir imágenes
-app.post("/api/upload", upload.array("imagenes", 5), (req, res) => {
+app.post("/api/upload", upload.array("photo", 5), (req, res) => {
   const urls = req.files.map((file) => file.path); // Obtiene las URLs de las imágenes
   res.json({ message: "Imágenes subidas con éxito", urls });
 });
