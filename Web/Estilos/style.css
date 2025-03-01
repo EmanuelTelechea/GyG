@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Playfair+Display:wght@400;700&display=swap');
+
 body {
-    font-family: 'Open Sans', sans-serif; /* Cambiar la fuente principal */
-    background-color: #f8f9fa;
+    font-family: 'Roboto', sans-serif; /* Cambiar la fuente del cuerpo */
+    background-color: #FFFFFF; /* Fondo blanco */
 }
 .navbar {
     background: url(../img/back2.jpg);
@@ -13,38 +15,48 @@ body {
 }
 .navbar-brand {
     font-weight: bold;
-    color: #000000;
+    color: #020813; /* Color de la marca */
     font-style: normal;
     font-size: large;
     margin-left: 50px;
+    font-family:'Times New Roman', Times, serif
 }
 .navbar-brand:hover {
-    color: #ffffff;
+    color: #FFFFFF; /* Color al pasar el ratón */
 }
 .nav-link {
-    color: #000;
-    font-family: 'Open Sans', sans-serif; /* Cambiar la fuente de los enlaces de navegación */
+    color: #A07D4B; /* Color de los enlaces de navegación */
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    /* Cambiar la fuente de los enlaces de navegación */
     font-size: large;
 }
 .nav-link:hover {
-    color: #ffffff;
+    color: #FFFFFF !important; /* Color al pasar el ratón */
 }
 .sidebar {
-    background-color: #f1f3f5;
+    background-color: #020813; /* Fondo oscuro */
     padding: 20px;
     border-radius: 10px;
 }
 .sidebar .nav-link {
-    color: #000;
+    color: #A07D4B; /* Color de los enlaces */
     font-weight: 500;
+    border-bottom: 1px solid #ccc; /* Añadir una línea de separación */
+    background-color: #020813; /* Fondo oscuro */
+    border-radius: 5px;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+.sidebar .nav-link:last-child {
+    border-bottom: none; /* Quitar la línea de separación del último elemento */
 }
 .sidebar .nav-link:hover {
-    background-color: #e9ecef;
-    border-radius: 5px;
+    background-color: #A07D4B; /* Cambiar el color de fondo al pasar el ratón */
+    color: #FFFFFF; /* Cambiar el color del texto al pasar el ratón */
 }
 .sidebar .nav-link.active {
-    background-color: #e9ecef;
-    border-radius: 5px;
+    background-color: #A07D4B; /* Fondo más llamativo para la categoría activa */
+    color: #FFFFFF; /* Color del texto para la categoría activa */
 }
 .product-card {
     display: flex;
@@ -64,17 +76,19 @@ body {
 .product-card .card-title {
     font-size: 1.1rem;
     font-weight: 600;
+    font-family: 'Playfair Display', serif; /* Cambiar la fuente del título */
 }
 .product-card .card-text {
-    color: #007bff;
+    color: #A07D4B; /* Color del texto */
     font-weight: bold;
 }
 .sort-button {
-    background-color: #f1f3f5;
+    background-color: #A07D4B; /* Fondo del botón */
     border: none;
     border-radius: 5px;
     padding: 10px 20px;
     font-weight: 500;
+    color: #FFFFFF; /* Color del texto */
 }
 @media (max-width: 767.98px) {
     .sidebar {
@@ -95,7 +109,9 @@ body {
 }
 .fw-bold {
     text-align: center;
-    font-family: 'Merriweather', serif; /* Cambiar la fuente de los títulos */
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    /* Cambiar la fuente de los títulos */
+    color: #020813; /* Color del texto */
 }
 
 /* Styles for the carousel */
@@ -124,13 +140,13 @@ body {
 input[type="search"] {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    border-color: #000;
+    border-color: #A07D4B; /* Color del borde */
 }
 
 .btn-outline-secondary {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
-    border-color: #000;
+    border-color: #A07D4B; /* Color del borde */
 }
 
 input[type="search"]:focus {
@@ -141,14 +157,29 @@ input[type="search"]:focus {
 
 .relative {
     position: relative;
-    background: url(../img/WhatsApp\ Image\ 2025-01-23\ at\ 18.52.50.jpeg);
+    background-color: #000000; /* Fondo negro */
     width: 100%;
     height: 100vh;
     display: flex;
-    color: white;
+    color: #FFFFFF; /* Color del texto */
     flex-direction: column; 
     justify-content: center;
     align-items: center;
+}
+
+
+
+.relative .row .col-md-6 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.relative .hero-text {
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 2rem;
+    color: #FFFFFF; /* Color del texto */
 }
 
 #destacados{
@@ -158,6 +189,9 @@ input[type="search"]:focus {
     justify-content: center;
     align-content: center;
 }
+#destacados .text-center{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
 #ofertas{
     width: 100%;
     height: 100vh;
@@ -165,11 +199,12 @@ input[type="search"]:focus {
     justify-content: center;
     align-content: center;
     background-color: #00000018;
+    
 }
 #presentacion{
     width: 100%;
     height: 85vh;
-    background-color: #f8f9fa;
+    background-color: #FFFFFF; /* Fondo blanco */
     border-radius: 10px;
     text-align: center;
     display: flex;
@@ -191,12 +226,15 @@ input[type="search"]:focus {
 }
 
 #presentacion h1 {
-    font-family: 'Playfair Display', serif;
-    color: #343a40;
+    font-weight: bold;
+    font-size: 5rem;
+    text-align: left;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; /* Cambiar la fuente del título */
+    color: #020813; /* Color del texto */
 }
 
 #presentacion p {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif; /* Cambiar la fuente del párrafo */
     color: #6c757d;
     line-height: 1.6;
 }
@@ -212,13 +250,15 @@ input[type="search"]:focus {
     height: auto;
     padding: 100px;
     text-align: center;
+    background-color: #c2c2c2; /* Fondo oscuro */
+    color: #FFFFFF; /* Color del texto */
 }
 .styled-button {
     position: relative;
     padding: 1rem 2rem;
     font-size: 1.1rem;
-    font-weight: bold;
-    color: #ffffff;
+    
+    color: #FFFFFF; /* Color del texto */
     background: linear-gradient(to bottom, #171717, #242424);
     border-radius: 9999px;
     cursor: pointer;
@@ -338,11 +378,13 @@ input[type="search"]:focus {
 .product-section h2 {
     margin-left: 20px; /* Alinear con los bordes de los carruseles */
     text-align: left; /* Alinear a la izquierda */
-    font-family: 'Merriweather', serif; /* Cambiar la fuente */
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    /* Cambiar la fuente */
     font-size: 2rem; /* Ajustar el tamaño de la fuente */
     margin-bottom: 1.5rem; /* Ajustar la separación inferior */
     padding: 10px;
     border-radius: 10px;
+    color: #020813; /* Color del texto */
 }
 
 #Contáctanos {
@@ -359,19 +401,20 @@ input[type="search"]:focus {
 }
 
 #Contáctanos h2 {
-    font-family: 'Merriweather', serif;
     font-size: 2rem;
     margin-bottom: 1rem;
+    color: #020813; /* Color del texto */
 }
 
 #Contáctanos p {
     font-size: 1.2rem;
     margin-bottom: 1.5rem;
+    color: #6c757d;
 }
 
 #Contáctanos button {
-    background-color: #007bff;
-    color: white;
+    background-color: #A07D4B; /* Fondo del botón */
+    color: #FFFFFF; /* Color del texto */
     border: none;
     padding: 10px 20px;
     font-size: 1rem;
@@ -381,7 +424,7 @@ input[type="search"]:focus {
 }
 
 #Contáctanos button:hover {
-    background-color: #0056b3;
+    background-color: #8a5f3b; /* Color al pasar el ratón */
 }
 
 #testimonios{
@@ -487,11 +530,17 @@ input[type="search"]:focus {
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: 10px;
+    color: #020813; /* Color del texto */
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    /* Cambiar la fuente del título */
 }
 
 #product-info h3 {
     font-size: 2.5rem;
     margin-bottom: 10px;
+    color: #020813; /* Color del texto */
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    /* Cambiar la fuente del subtítulo */
 }
 
 #product-info h5 {
@@ -504,19 +553,21 @@ input[type="search"]:focus {
     font-size: 1rem;
     color: #333;
     line-height: 1.5;
+    font-family: 'Roboto', sans-serif; /* Cambiar la fuente del párrafo */
 }
 
 #product-info .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
+    background-color: #A07D4B; /* Fondo del botón */
+    border-color: #A07D4B; /* Color del borde */
     font-size: 1rem;
     padding: 10px 20px;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+    color: #FFFFFF; /* Color del texto */
 }
 
 #product-info .btn-primary:hover {
-    background-color: #0056b3;
+    background-color: #8a5f3b; /* Color al pasar el ratón */
 }
 
 #product-description {
@@ -531,6 +582,7 @@ input[type="search"]:focus {
     font-weight: bold;
     margin-bottom: 20px; 
     text-decoration: underline; 
+    color: #020813; /* Color del texto */
 }
 
 #product-description p {
@@ -545,10 +597,45 @@ input[type="search"]:focus {
     margin-bottom: 20px; 
     text-decoration: underline; 
     margin-top: 30px;
+    color: #020813; /* Color del texto */
 }
 
 #related-products-carousel {
     margin-left: 0; /* Alinear el slider más a la izquierda */
+}
+
+#reseñas {
+    width: 100%;
+    padding: 40px 20px; 
+    border-radius: 10px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+#reseñas .card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#reseñas .card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #020813;
+}
+
+#reseñas .card-text {
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+#reseñas .text-warning {
+    font-size: 1.2rem;
+}
+
+#reseñas .img-fluid {
+    max-width: 50px;
+    margin-bottom: 15px;
 }
 
 .chatbot {
