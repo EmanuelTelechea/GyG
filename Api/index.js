@@ -329,6 +329,55 @@ app.get('/api/en-oferta', async (req, res) => {
     res.status(500).json({ error: 'Error al obtener los artículos en oferta' });
   }
 });
+app.post('/ventas', async (req, res) => {
+  const { articulos } = req.body; // [{ articulo_id, cantidad, precio_unitario }]
+  
+  if (!articulos || articulos.length === 0) {
+      return res.status(400).json({ error: 'No hay artículos en la venta' });
+  }
+
+  const connection = await pool.getConnection();
+  await connection.beginTransaction();
+
+  try {
+      // Insertar en ventas
+      const [result] = await connection.query('INSERT INTO ventas (total) VALUES (0)');
+      const ventaId = result.insertId;
+
+      let totalVenta = 0;
+
+      for (const item of articulos) {
+          const { articulo_id, cantidad, precio_unitario } = item;
+
+          // Insertar en detalle_ventas
+          await connection.query(
+              'INSERT INTO detalle_ventas (venta_id, articulo_id, cantidad, precio_unitario) VALUES (?, ?, ?, ?)',
+              [ventaId, articulo_id, cantidad, precio_unitario]
+          );
+
+          // Actualizar stock en articulos
+          await connection.query(
+              'UPDATE articulos SET stock = stock - ? WHERE id = ?',
+              [cantidad, articulo_id]
+          );
+
+          totalVenta += cantidad * precio_unitario;
+      }
+
+      // Actualizar total de la venta
+      await connection.query('UPDATE ventas SET total = ? WHERE id = ?', [totalVenta, ventaId]);
+
+      await connection.commit();
+      res.status(201).json({ message: 'Venta registrada', ventaId });
+  } catch (error) {
+      await connection.rollback();
+      console.error(error);
+      res.status(500).json({ error: 'Error al registrar la venta' });
+  } finally {
+      connection.release();
+  }
+});
+
 
 app.post('/api/contacto', (req, res) => {
     const { name, email, message } = req.body;

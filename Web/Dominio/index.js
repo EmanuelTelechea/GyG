@@ -9,14 +9,14 @@ document.addEventListener('DOMContentLoaded', function() {
         if (Array.isArray(data)) {
             let slideContent = '';
             data.forEach((articulo, index) => {
-                if (index % 4 === 0) {
+                if (index % 1 === 0) { // Cambiado de 4 a 1
                     if (slideContent) {
                         articuloList.innerHTML += slideContent;
                     }
                     slideContent = `<div class="carousel-item ${index === 0 ? 'active' : ''}"><div class="row">`;
                 }
                 slideContent += `
-                    <div class="col-md-3 mb-4">
+                    <div class="col-12 col-md-12 mb-4"> <!-- Agregado col-12 para pantallas móviles -->
                         <div class="card articulo-card" onclick="window.location.href='productoDetalle.html?id=${articulo.id}'">
                             <img alt="${articulo.nombre}" class="card-img-top" height="300" src="${articulo.imagenes.url}" width="300"/>
                             <div class="card-body">
@@ -26,14 +26,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                     </div>
                 `;
-                if (index % 4 === 3 || index === data.length - 1) {
+                if (index % 1 === 0 || index === data.length - 1) { // Cambiado de 4 a 1
                     slideContent += `</div></div>`;
                 }
             });
             articuloList.innerHTML += slideContent;
 
-            // Ocultar flechas si hay 4 o menos elementos
-            if (data.length <= 4) {
+            // Ocultar flechas si hay 1 o menos elementos
+            if (data.length <= 1) { // Cambiado de 4 a 1
                 prevButton.style.display = 'none';
                 nextButton.style.display = 'none';
             }
@@ -62,14 +62,14 @@ document.addEventListener('DOMContentLoaded', function() {
         if (Array.isArray(data)) {
             let slideContent = '';
             data.forEach((articulo, index) => {
-                if (index % 4 === 0) {
+                if (index % 1 === 0) { // Cambiado de 4 a 1
                     if (slideContent) {
                         articuloList.innerHTML += slideContent;
                     }
                     slideContent = `<div class="carousel-item ${index === 0 ? 'active' : ''}"><div class="row">`;
                 }
                 slideContent += `
-                    <div class="col-md-3 mb-4">
+                    <div class="col-12 col-md-12 mb-4"> <!-- Agregado col-12 para pantallas móviles -->
                         <div class="card articulo-card" onclick="window.location.href='productoDetalle.html?id=${articulo.id}'">
                             <img alt="${articulo.nombre}" class="card-img-top" height="300" src="${articulo.imagenes.url}" width="300"/>
                             <div class="card-body">
@@ -79,14 +79,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                     </div>
                 `;
-                if (index % 4 === 3 || index === data.length - 1) {
+                if (index % 1 === 0 || index === data.length - 1) { // Cambiado de 4 a 1
                     slideContent += `</div></div>`;
                 }
             });
             articuloList.innerHTML += slideContent;
 
-            // Ocultar flechas si hay 4 o menos elementos
-            if (data.length <= 4) {
+            // Ocultar flechas si hay 1 o menos elementos
+            if (data.length <= 1) { // Cambiado de 4 a 1
                 prevButton.style.display = 'none';
                 nextButton.style.display = 'none';
             }

@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData(contactForm);
         const name = formData.get('name');
         const email = formData.get('email');
+        const phone = formData.get('phone');
         const message = formData.get('message');
 
         fetch('http://gyg-production-312a.up.railway.app/api/contacto', {
@@ -15,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name, email, message })
+            body: JSON.stringify({ name, email, phone, message })
         })
         .then(response => response.json())
         .then(data => {
