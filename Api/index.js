@@ -378,6 +378,30 @@ app.post('/ventas', async (req, res) => {
   }
 });
 
+app.get('/ventas', async (req, res) => {
+  try {
+      const [ventas] = await pool.query('SELECT * FROM ventas ORDER BY fecha DESC');
+      res.json(ventas);
+  } catch (error) {
+      console.error('Error al obtener ventas:', error);
+      res.status(500).json({ error: 'Error al obtener ventas' });
+  }
+});
+
+app.get('/ventas/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+      const [venta] = await pool.query('SELECT * FROM ventas WHERE id = ?', [id]);
+      if (venta.length === 0) {
+          return res.status(404).json({ error: 'Venta no encontrada' });
+      }
+      res.json(venta[0]);
+  } catch (error) {
+      console.error('Error al obtener la venta:', error);
+      res.status(500).json({ error: 'Error al obtener la venta' });
+  }
+});
+
 
 app.post('/api/contacto', (req, res) => {
     const { name, email, message } = req.body;
