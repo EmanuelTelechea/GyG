@@ -402,6 +402,36 @@ app.get('/ventas/:id', async (req, res) => {
   }
 });
 
+app.get('/ventas/:venta_id/detalle', async (req, res) => {
+  const { venta_id } = req.params;
+
+  try {
+      // Consulta para obtener el detalle de la venta
+      const [rows] = await pool.query(`
+          SELECT 
+              dv.id AS detalle_id,
+              a.nombre AS articulo_nombre, 
+              dv.cantidad, 
+              dv.precio_unitario, 
+              (dv.cantidad * dv.precio_unitario) AS subtotal
+          FROM 
+              detalle_ventas dv
+          JOIN 
+              articulos a ON dv.articulo_id = a.id
+          WHERE 
+              dv.venta_id = ?
+      `, [venta_id]);
+
+      if (rows.length === 0) {
+          return res.status(404).json({ message: 'Venta no encontrada o sin detalles' });
+      }
+
+      return res.json(rows);
+  } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: 'Error al obtener los detalles de la venta' });
+  }
+});
 
 app.post('/api/contacto', (req, res) => {
     const { name, email, message } = req.body;
