@@ -330,8 +330,10 @@ app.get('/api/en-oferta', async (req, res) => {
   }
 });
 app.post('/ventas', async (req, res) => {
-  const { articulos } = req.body; // [{ articulo_id, cantidad, precio_unitario }]
-  
+  const { articulos } = req.body; 
+  // Ahora puede contener [{ tipo: 'articulo', articulo_id, cantidad, precio_unitario }]
+  // o [{ tipo: 'personalizado', nombre, descripcion, cantidad, precio_unitario }]
+
   if (!articulos || articulos.length === 0) {
       return res.status(400).json({ error: 'No hay artículos en la venta' });
   }
@@ -347,20 +349,40 @@ app.post('/ventas', async (req, res) => {
       let totalVenta = 0;
 
       for (const item of articulos) {
-          const { articulo_id, cantidad, precio_unitario } = item;
+          const { tipo, cantidad, precio_unitario } = item;
 
-          // Insertar en detalle_ventas
-          await connection.query(
-              'INSERT INTO detalle_ventas (venta_id, articulo_id, cantidad, precio_unitario) VALUES (?, ?, ?, ?)',
-              [ventaId, articulo_id, cantidad, precio_unitario]
-          );
+          let query, values;
 
-          // Actualizar stock en articulos
-          await connection.query(
-              'UPDATE articulos SET stock = stock - ? WHERE id = ?',
-              [cantidad, articulo_id]
-          );
+          if (tipo === 'articulo') {
+              const { articulo_id } = item;
 
+              // Insertar en detalle_ventas como artículo normal
+              query = 'INSERT INTO detalle_ventas (venta_id, articulo_id, cantidad, precio_unitario, tipo) VALUES (?, ?, ?, ?, ?)';
+              values = [ventaId, articulo_id, cantidad, precio_unitario, 'articulo'];
+
+              // Actualizar stock en artículos
+              await connection.query(
+                  'UPDATE articulos SET stock = stock - ? WHERE id = ?',
+                  [cantidad, articulo_id]
+              );
+
+          } else if (tipo === 'personalizado') {
+              const { nombre, descripcion } = item;
+
+              // Insertar pedido personalizado
+              const [personalizadoResult] = await connection.query(
+                  'INSERT INTO pedidos_personalizados (nombre, descripcion, precio) VALUES (?, ?, ?)',
+                  [nombre, descripcion, precio_unitario]
+              );
+
+              const personalizadoId = personalizadoResult.insertId;
+
+              // Insertar en detalle_ventas como producto personalizado
+              query = 'INSERT INTO detalle_ventas (venta_id, personalizado_id, cantidad, precio_unitario, tipo) VALUES (?, ?, ?, ?, ?)';
+              values = [ventaId, personalizadoId, cantidad, precio_unitario, 'personalizado'];
+          }
+
+          await connection.query(query, values);
           totalVenta += cantidad * precio_unitario;
       }
 
@@ -377,6 +399,7 @@ app.post('/ventas', async (req, res) => {
       connection.release();
   }
 });
+
 
 app.get('/ventas', async (req, res) => {
   try {
@@ -432,6 +455,88 @@ app.get('/ventas/:venta_id/detalle', async (req, res) => {
       return res.status(500).json({ message: 'Error al obtener los detalles de la venta' });
   }
 });
+
+app.get('/pedidos_personalizados', async (req, res) => {
+  try {
+      const [rows] = await pool.query('SELECT * FROM pedidos_personalizados');
+      res.json(rows);
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error al obtener los pedidos personalizados' });
+  }
+});
+
+app.get('/pedidos_personalizados/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+      const [rows] = await pool.query('SELECT * FROM pedidos_personalizados WHERE id = ?', [id]);
+      if (rows.length === 0) {
+          return res.status(404).json({ error: 'Pedido personalizado no encontrado' });
+      }
+      res.json(rows[0]);
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error al obtener el pedido personalizado' });
+  }
+});
+
+app.post('/pedidos_personalizados', async (req, res) => {
+  const { nombre, descripcion, medidas, precio } = req.body;
+  
+  if (!nombre || !descripcion || !precio) {
+      return res.status(400).json({ error: 'Los campos nombre, descripción y precio son obligatorios' });
+  }
+
+  try {
+      const [result] = await pool.query(
+          'INSERT INTO pedidos_personalizados (nombre, descripcion, medidas, precio) VALUES (?, ?, ?, ?)',
+          [nombre, descripcion, medidas || null, precio]
+      );
+      res.status(201).json({ message: 'Pedido personalizado creado', id: result.insertId });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error al crear el pedido personalizado' });
+  }
+});
+
+app.put('/pedidos_personalizados/:id', async (req, res) => {
+  const { id } = req.params;
+  const { nombre, descripcion, medidas, precio } = req.body;
+
+  try {
+      const [result] = await pool.query(
+          'UPDATE pedidos_personalizados SET nombre = ?, descripcion = ?, medidas = ?, precio = ? WHERE id = ?',
+          [nombre, descripcion, medidas || null, precio, id]
+      );
+
+      if (result.affectedRows === 0) {
+          return res.status(404).json({ error: 'Pedido personalizado no encontrado' });
+      }
+
+      res.json({ message: 'Pedido personalizado actualizado' });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error al actualizar el pedido personalizado' });
+  }
+});
+
+app.delete('/pedidos_personalizados/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+      const [result] = await pool.query('DELETE FROM pedidos_personalizados WHERE id = ?', [id]);
+
+      if (result.affectedRows === 0) {
+          return res.status(404).json({ error: 'Pedido personalizado no encontrado' });
+      }
+
+      res.json({ message: 'Pedido personalizado eliminado' });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Error al eliminar el pedido personalizado' });
+  }
+});
+
 
 app.post('/api/contacto', (req, res) => {
     const { name, email, message } = req.body;
