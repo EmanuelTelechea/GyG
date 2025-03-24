@@ -1,7 +1,6 @@
 import express from 'express';
 import mysql from 'mysql2/promise';
 import bodyParser from 'body-parser';
-import multer from 'multer';
 import nodemailer from 'nodemailer';
 import cors from 'cors';
 import dotenv from 'dotenv';
@@ -19,8 +18,7 @@ const pool = mysql.createPool({
     host: `localhost`, 
     user: `root`,
     password: `root`,
-    database: `GGart_db`,
-    port: 3306
+    database: `GGart_db`
 });
 
 // Middleware
