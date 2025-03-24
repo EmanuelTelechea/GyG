@@ -16,11 +16,11 @@ const PORT = 3000;
 
 // Configurar conexión a MySQL con pool
 const pool = mysql.createPool({
-    host: `tramway.proxy.rlwy.net`, 
+    host: `localhost`, 
     user: `root`,
-    password: `JZpnHgdPhluDDBeJZDPTSwwSCPaaRVBK`,
+    password: `root`,
     database: `GGart_db`,
-    port: 23747
+    port: 3306
 });
 
 // Middleware
