@@ -1,238 +1,296 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="es">
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>
-        G&amp;G Artesanias en Madera
-    </title>
+    <title>G&G Artesanias en Madera</title>
     <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="Estilos/style.css">
-    
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="index.html" style="color: #020813;">
-            <img src="img/logo.png" alt="Logo de la tienda" width="50%">
-        </a>
-        <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="mb-6 d-flex justify-content-between">
-            <input id="searchInput" aria-label="Search" class="form-control" placeholder="Buscar productos" type="search"/>
-            <button id="searchButton" class="btn btn-outline-secondary" type="button">
-                <i class="fas fa-search"></i>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="img/LogoNuevo.png" alt="Logo de la tienda" class="logo-img" width="50%">
+            </a>
+            <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
             </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="mb-6 d-flex justify-content-between">
+                    <input id="searchInput" aria-label="Search" class="form-control" placeholder="Buscar productos" type="search"/>
+                    <button id="searchButton" class="btn btn-outline-secondary" type="button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="productos.html">| CATALOGO </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="sobreNosotros.html">| SOBRE NOSOTROS </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contacto.html">| CONTACTANOS </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="ubicacion.html">| UBICACION </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="productos.html" style="color: black;">| CATALOGO </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="sobreNosotros.html" style="color: black">| SOBRE NOSOTROS </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contacto.html" style="color: black">| CONTACTANOS </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="ubicacion.html" style="color: black">| UBICACION </a>
-                </li>
+    </nav>
+
+    <section id="presentacion" class="modern-hero">
+        <div class="hero-bg-pattern" style="z-index: 1;"></div> <!-- Asegurar que el fondo esté detrás -->
+        <div class="container">
+            <div class="hero-content-wrapper">
+                <div class="hero-text-content">
+                    <h1 class="hero-heading"><span>G & G</span> <br> Artesanías en Madera</h1>
+                    <p class="hero-subheading">Piezas únicas elaboradas a mano con las mejores maderas y técnicas artesanales</p>
+                    
+                    <div class="hero-features-grid">
+                        <div class="hero-feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Calidad Premium</h4>
+                                <p>Materiales seleccionados</p>
+                            </div>
+                        </div>
+                        <div class="hero-feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Envío Nacional</h4>
+                                <p>A todo el país</p>
+                            </div>
+                        </div>
+                        <div class="hero-feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Personalización</h4>
+                                <p>Diseños a medida</p>
+                            </div>
+                        </div>
+                        <div class="hero-feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Garantía</h4>
+                                <p>Satisfacción asegurada</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-cta-container">
+                        <a href="productos.html" class="hero-cta-primary">
+                            EXPLORAR CATÁLOGO <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="contacto.html" class="hero-cta-secondary">
+                            CONTACTAR
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="hero-image-content">
+                    <div class="floating-image-container">
+                        <img src="img/WhatsApp Image 2025-01-23 at 18.52.50.jpeg" alt="Artesanías en madera" class="hero-main-image">
+                        <div class="image-decoration"></div>
+                        <div class="floating-badge">
+                            <div class="badge-inner">
+                                <span class="badge-number">100%</span>
+                                <span class="badge-text">ARTESANAL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="hero-bottom-wave">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#ffffff" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,149.3C960,160,1056,160,1152,138.7C1248,117,1344,75,1392,53.3L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div>
+    </section>
+
+      <!-- Featured Products -->
+  <section id="destacados" class="section-padding">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">Productos destacados</h2>
+        
+        <!-- Nuevo carrusel de productos destacados -->
+        <div class="products-carousel">
+            <div class="carousel-navigation">
+                <button id="featured-prev" class="carousel-nav-button">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button id="featured-next" class="carousel-nav-button">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="products-slider" id="featured-products-slider">
+                <!-- Los productos destacados se cargarán aquí -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Sale Products -->
+<section id="ofertas" class="section-padding">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">Productos en oferta</h2>
+        
+        <!-- Nuevo carrusel de productos en oferta -->
+        <div class="products-carousel">
+            <div class="carousel-navigation">
+                <button id="sale-prev" class="carousel-nav-button">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button id="sale-next" class="carousel-nav-button">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="products-slider" id="sale-products-slider">
+                <!-- Los productos en oferta se cargarán aquí -->
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Customer Reviews -->
+    <section id="reseñas" class="section-padding">
+        <div class="container">
+            <h2 class="section-title text-center mb-5">Reseñas de Clientes Anteriores</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="review-card">
+                        <div class="review-header">
+                            <img src="https://lh3.googleusercontent.com/a/ACg8ocJZ01JJ8vbza2LA_4dKHzM1lLwd9NH5QLL1QYdz-pU_2zfdD28=s288-c-no" alt="Emanuel Telechea" class="review-avatar">
+                            <div>
+                                <h5 class="review-name">Emanuel Telechea</h5>
+                                <div class="review-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="review-text">"Excelente calidad y servicio. Muy satisfecho con mi compra."</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="review-card">
+                        <div class="review-header">
+                            <img src="img/logo.png" alt="Juan Perez" class="review-avatar">
+                            <div>
+                                <h5 class="review-name">Juan Perez</h5>
+                                <div class="review-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="review-text">"Productos hermosos y bien hechos. Definitivamente volveré a comprar."</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="review-card">
+                        <div class="review-header">
+                            <img src="https://img.a.transfermarkt.technology/portrait/header/28003-1740766555.jpg?lm=1" alt="Lionel Messi" class="review-avatar">
+                            <div>
+                                <h5 class="review-name">Lionel Messi</h5>
+                                <div class="review-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="review-text">"Entrega rápida y productos de alta calidad. Muy recomendable."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section id="Contáctanos" class="section-padding">
+        <div class="container text-center">
+            <h1 class="section-title mb-4">¿Deseas comprar algo personalizado?</h1>
+            <p class="lead mb-5">¡No dudes en contactarnos!</p>
+            <a href="contacto.html" class="btn-contacto mb-4">CONTACTANOS</a>
+            <p class="contact-subtext">¡Estamos a tu disposición para lograr ese producto que te imaginás y querés llevar a la realidad!</p>
+        </div>
+    </section>
+
+    <!-- Chatbot -->
+    <div id="chatbot" class="chatbot">
+        <div class="chatbot-header">
+            <h5>Preguntas Frecuentes</h5>
+            <button id="closeChatbot" class="btn-close"></button>
+        </div>
+        <div class="chatbot-body">
+            <ul id="faqList">
+                <li><strong>¿Cuál es el horario de atención?</strong><br> Nuestro horario de atención es de lunes a viernes de 9:00 a 18:00.</li>
+                <li><strong>¿Realizan envíos a todo el país?</strong><br> Sí, realizamos envíos a todo el país.</li>
+                <li><strong>¿Cuáles son los métodos de pago aceptados?</strong><br> Aceptamos tarjetas de crédito, débito y transferencias bancarias.</li>
+                <li><strong>¿Hacen productos personalizados?</strong><br> Sí, realizamos productos personalizados según tus necesidades. Contáctanos para más información.</li>
+                <li><strong>¿Cuánto tiempo tarda en llegar mi pedido?</strong><br> El tiempo de entrega varía según tu ubicación, generalmente entre 3 a 7 días hábiles.</li>
             </ul>
         </div>
-    </div>
-</nav>
-
-<div id="presentacion">
-    <div class="row">
-        <div class="col-md-6">
-            <h1  style="color: #020813;">Bienvenidos a G&amp;G Artesanías en Madera</h1>
-            <div class="d-flex flex-column justify-content-center align-items-start text-white p-5">
-                <h3 style="color: black;">Productos de calidad</h3>
-                <p>Descubre nuestra amplia variedad de productos hechos a mano con los mejores materiales.</p>
-                <h3 style="color: black;">Envíos a todo el país</h3>
-                <p>Realizamos envíos a todo el país para que puedas disfrutar de nuestros productos desde la comodidad de tu hogar.</p>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <img src="img/WhatsApp Image 2025-01-23 at 18.52.50.jpeg" alt="Logo de la tienda" width="100%">
-
-            </div>
-    </div>
-</div>
-
-<div class="relative">
-    <div class="row w-100">
-        <div class="col-md-6 p-0">
-            <img src="img/WhatsApp Image 2025-01-23 at 18.52.50.jpeg" alt="Imagen de productos" class="img-fluid">
-        </div>
-        <div class="col-md-6 d-flex flex-column justify-content-center align-items-center text-white p-5">
-            <h2 class="hero-text text-center">Descubre nuestro catálogo completo de productos</h2>
-            <a href="productos.html">
-                <button class="styled-button mt-6">
-                    VER CATÁLOGO COMPLETO
+        <div class="chatbot-footer">
+            <div class="input-group">
+                <input type="text" id="chatbotInput" class="form-control" placeholder="Escribe tu pregunta...">
+                <button id="sendChatbot" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> 
                 </button>
-            </a>
-        </div>
-    </div>
-</div>
-
-<div class="container-fluid product-section" id="destacados">
-    <h2 class="text-center">
-        Productos destacados
-    </h2>
-    <div id="featured-carousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner row w-100 mx-auto" id="featured-articulo-list">
-            <!-- Featured products will be loaded here -->
-        </div>
-        <button class="carousel-control-prev custom-carousel-control" type="button" data-bs-target="#featured-carousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next custom-carousel-control" type="button" data-bs-target="#featured-carousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
-</div>
-
-<div class="container-fluid product-section" id="ofertas">
-    <h2 class="text-center" >
-        Productos en oferta
-    </h2>
-    <div id="offer-carousel" class="carousel slide" data-bs-ride="carousel">
-        <button class="carousel-control-prev custom-carousel-control" type="button" data-bs-target="#offer-carousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <div class="carousel-inner row w-100 mx-auto" id="articulo-en-oferta">
-            <!-- On-sale products will be loaded here -->
-        </div>
-        <button class="carousel-control-next custom-carousel-control" type="button" data-bs-target="#offer-carousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
-</div>
-
-<div class="container-fluid product-section" id="reseñas">
-    <h2 class="text-center">
-        Reseñas de Clientes Anteriores
-    </h2>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <div class="card-body">
-                    <img src="https://lh3.googleusercontent.com/a/ACg8ocJZ01JJ8vbza2LA_4dKHzM1lLwd9NH5QLL1QYdz-pU_2zfdD28=s288-c-no" alt="Logo Cliente 1" class="img-fluid mb-3" style="max-width: 50px;">
-                    <h5 class="card-title">Emanuel Telechea</h5>
-                    <p class="card-text">"Excelente calidad y servicio. Muy satisfecho con mi compra."</p>
-                    <p class="card-text">Calificación: 
-                        <span class="text-warning">
-                            ★★★★☆
-                        </span>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <div class="card-body">
-                    <img src="img/logo.png" alt="Logo Cliente 2" class="img-fluid mb-3" style="max-width: px;">
-                    <h5 class="card-title">Juan Perez</h5>
-                    <p class="card-text">"Productos hermosos y bien hechos. Definitivamente volveré a comprar."</p>
-                    <p class="card-text">Calificación: 
-                        <span class="text-warning">
-                            ★★★★★
-                        </span>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <div class="card-body">
-                    <img src="https://img.a.transfermarkt.technology/portrait/header/28003-1740766555.jpg?lm=1" alt="Logo Cliente 3" class="img-fluid mb-3" style="max-width: 50px;">
-                    <h5 class="card-title">Lionel Messi</h5>
-                    <p class="card-text">"Entrega rápida y productos de alta calidad. Muy recomendable."</p>
-                    <p class="card-text">Calificación: 
-                        <span class="text-warning">
-                            ★★★★☆
-                        </span>
-                    </p>
-                </div>
             </div>
         </div>
     </div>
-</div>
+    <button id="openChatbot" class="btn btn-primary chatbot-button">
+        <i class="fas fa-question-circle me-2"></i>Preguntas frecuentes
+    </button>
 
-<div class="container-fluid product-section" id="Contáctanos">
-    <h1 class="text-center">
-        Deseas comprar algo personalizado?
-    </h1>
-    <br>
-    <p class="text-center">
-        ¡No dudes en contactarnos!
-    </p>
-    <br>
-    <a href="contacto.html" class=" btn btn-primary ">Contectanos</a>
-    
-    <div class="text-center">
-        ¡Estamos a tu disposicion para lograr ese producto que te imaginás y queres llevar a la realidad!
-    </div>
-    
-</div>
-
-<!-- Chatbot -->
-<div id="chatbot" class="chatbot">
-    <div class="chatbot-header">
-        <h5>Preguntas Frecuentes</h5>
-        <button id="closeChatbot" class="btn-close"></button>
-    </div>
-    <div class="chatbot-body">
-        <ul id="faqList">
-            <li><strong>¿Cuál es el horario de atención?</strong><br> Nuestro horario de atención es de lunes a viernes de 9:00 a 18:00.</li>
-            <li><strong>¿Realizan envíos a todo el país?</strong><br> Sí, realizamos envíos a todo el país.</li>
-            <li><strong>¿Cuáles son los métodos de pago aceptados?</strong><br> Aceptamos tarjetas de crédito, débito y transferencias bancarias.</li>
-            <!-- Agregar más preguntas frecuentes aquí -->
-        </ul>
-    </div>
-    <div class="chatbot-footer">
-        <input type="text" id="chatbotInput" class="form-control" placeholder="Escribe tu pregunta...">
-        <button id="sendChatbot" class="btn btn-primary">
-            <i class="fas fa-paper-plane"></i> 
-        </button>
-    </div>
-</div>
-<button id="openChatbot" class="btn btn-primary chatbot-button">Preguntas frecuentes</button>
-
-<footer class="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <a href="https://instagram.com/ggart_esanias">
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="social-icons">
+                <a href="https://instagram.com/ggart_esanias" class="social-icon">
                     <i class="fab fa-instagram"></i>
                 </a>
-            </div>
-            <div class="col-md-4">
-                <a href="#">
+                <a href="#" class="social-icon">
                     <i class="fab fa-facebook-f"></i>
                 </a>
-            </div>
-            <div class="col-md-4">
-                <a href="#">
+                <a href="#" class="social-icon">
                     <i class="fab fa-twitter"></i>
                 </a>
             </div>
-            <p class="mt-5">
+            <p class="copyright">
                 © 2025 G&G artesanias en maderas. Todos los derechos reservados.
             </p>
         </div>
-    </div>
-</footer>
+    </footer>
 
-<script crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="Dominio/index.js"></script>
-<script src="Dominio/chatbot.js"></script>
+    <script crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="Dominio/index.js"></script>
+    <script src="Dominio/chatbot.js"></script>
 </body>
 </html>
+

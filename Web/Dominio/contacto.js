@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const phone = formData.get('phone');
         const message = formData.get('message');
 
-        fetch('http://gyg-production-312a.up.railway.app/api/contacto', {
+        fetch('http://localhost:3000/api/contacto', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

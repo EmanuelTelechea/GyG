@@ -1,62 +1,55 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>
-        G&amp;G Artesanias en Madera
-    </title>
-    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" rel="stylesheet"/>
+    <title>G&amp;G Artesanias en Madera - Catálogo</title>
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="Estilos/style.css">
-    <style>
-        #sortOptions {
-            width: 200px; /* Shorter width */
-            float: right; /* Align to the right */
-        }
-    </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="index.html" style="color: #020813;">
-            <img src="img/logo.png" alt="Logo de la tienda" width="50%">
+        <a class="navbar-brand" href="index.html">
+            <img src="img/LogoNuevo.png" alt="Logo de la tienda" class="logo-img" swidth="50%">
         </a>
         <button aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarNav" data-bs-toggle="collapse" type="button">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="mb-6 d-flex justify-content-between">
-            <input id="searchInput" aria-label="Search" class="form-control" placeholder="Buscar productos" type="search"/>
-            <button id="searchButton" class="btn btn-outline-secondary" type="button">
-                <i class="fas fa-search"></i>
-            </button>
-        </div>
         <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="mb-6 d-flex justify-content-between">
+                <input id="searchInput" aria-label="Search" class="form-control" placeholder="Buscar productos" type="search"/>
+                <button id="searchButton" class="btn btn-outline-secondary" type="button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="productos.html" style="color: black;">| CATALOGO </a>
+                    <a class="nav-link" href="productos.html">| CATALOGO </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="sobreNosotros.html" style="color: black">| SOBRE NOSOTROS </a>
+                    <a class="nav-link" href="sobreNosotros.html">| SOBRE NOSOTROS </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="contacto.html" style="color: black">| CONTACTANOS </a>
+                    <a class="nav-link" href="contacto.html">| CONTACTANOS </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="ubicacion.html" style="color: black">| UBICACION </a>
+                    <a class="nav-link" href="ubicacion.html">| UBICACION </a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+
 <div class="container-fluid mt-4">
     <div class="row">
         <div class="col-md-2">
             <button class="btn btn-outline-secondary sidebar-toggle" data-bs-target="#sidebarMenu" data-bs-toggle="collapse" type="button">Menu</button>
             <div class="sidebar collapse show category-background" id="sidebarMenu">
-                <h3 class="fw-bold text-center" style="color: #000000; padding-top: 20px; padding-bottom: 20px;">CATEGORIAS</h3>
+                <h3 class="fw-bold text-center" style="color: #000000; padding-top: 20px; padding-bottom: 20px; border-bottom: #000000; border-bottom-width: 2px;border-bottom-style: solid;">CATEGORIAS</h3>
                 <nav class="nav flex-column" id="categoryFilters">
                     <a class="nav-link category-link" href="#" onclick="fetchAllProducts()">Todos los Productos</a>
-
                     <!-- Category links will be populated here -->
                 </nav>
             </div>
@@ -64,13 +57,16 @@
         <div class="col-md-10">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2 class="fw-bold" style="color: #020813;">Catálogo de Productos</h2>
-                <select id="sortOptions" class="form-select" aria-label="Sort Products">
-                    <option value="default">Ordenar</option>
-                    <option value="priceAsc">Menor a Mayor</option>
-                    <option value="priceDesc">Mayor a Menor</option>
-                    <option value="nameAsc">A-Z</option>
-                    <option value="nameDesc">Z-A</option>
-                </select>
+                <div class="d-flex align-items-center">
+                    <span class="me-2" style="color: #020813;">Ordenar por : </span>
+                    <select id="sortOptions" class="form-select" aria-label="Sort Products">
+                        <option value="default">Más destacados</option>
+                        <option value="priceAsc">Precio: Menor a Mayor</option>
+                        <option value="priceDesc">Precio: Mayor a Menor</option>
+                        <option value="nameAsc">A-Z</option>
+                        <option value="nameDesc">Z-A</option>
+                    </select>
+                </div>
             </div>
             <div class="row" id="articulo-list" data-category-id="">
                 <!-- Products will be loaded here -->
@@ -78,6 +74,7 @@
         </div>
     </div>
 </div>
+
 <footer class="footer">
     <div class="container">
         <div class="row">
@@ -94,8 +91,8 @@
         </div>
     </div>
 </footer>
-<script crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+
+<script crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="Dominio/productos.js"></script>
 </body>
 </html>

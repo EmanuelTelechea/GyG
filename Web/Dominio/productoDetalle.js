@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const productId = urlParams.get('id');
 
     if (productId) {
-        fetch(`http://gyg-production-312a.up.railway.app/api/articulos/${productId}`)
+        fetch(`http://localhost:3000/api/articulos/${productId}`)
             .then(response => response.json())
             .then(product => {
                 const imageUrl = product.imagenes.length > 0 ? product.imagenes[0] : 'default-image.jpg'; // Fallback image
@@ -30,12 +30,15 @@ document.addEventListener('DOMContentLoaded', function() {
                         <h3>$${product.precio}</h3>
                         <br>
                         <h5>Quedan ${product.stock} unidades disponibles</h5>
+                        <button id="buyProduct" class="btn btn-whatsapp">
+                            <i class="fab fa-whatsapp"></i> Comprar por WhatsApp
+                        </button>
                     </div>
                     <div class="col-md-12" id="product-description">
                         <h3>Descripcion</h3>
                         <p>${product.descripcion}</p>
                         <p>Medidas: ${product.medidas} cm</p>
-                        <p>Categoría: ${product.categoria_id}</p>
+                        <p id="category-name">Categoría: </p>
                     </div>
                     <div class="col-md-12" id="related-products">
                         <h3>Productos Relacionados</h3>
@@ -56,8 +59,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 `;
                 document.getElementById('product-details').innerHTML = productDetails;
 
+                fetch(`http://localhost:3000/api/categorias/${product.categoria_id}`)
+                    .then(response => response.json())
+                    .then(category => {
+                        const categoryNameElement = document.getElementById('category-name');
+                        if (categoryNameElement) {
+                            categoryNameElement.textContent = `Categoría: ${category.nombre}`;
+                        }
+                    })
+                    .catch(error => console.error('Error fetching category name:', error));
+
+                // Agregar el evento al botón después de que se haya insertado en el DOM
+                const buyProductButton = document.getElementById('buyProduct');
+                if (buyProductButton) {
+                    buyProductButton.addEventListener('click', function() {
+                        const phoneNumber = '+59892120366'; // Reemplaza con el número del vendedor
+                        const message = encodeURIComponent('Hola, estoy interesado en comprar '+ product.nombre); // Reemplaza con el mensaje que quieras enviar
+                        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+                        window.open(whatsappUrl, '_blank'); // Abre el enlace en una nueva pestaña
+                    });
+                } else {
+                    console.warn('El elemento con ID "buyProduct" no se encontró en el DOM después de cargar el contenido dinámico.');
+                }
+
                 // Fetch related products
-                fetch(`http://gyg-production-312a.up.railway.app/api/articulos/categorias/${product.categoria_id}`)
+                fetch(`http://localhost:3000/api/articulos/categorias/${product.categoria_id}`)
                     .then(response => response.json())
                     .then(relatedProducts => {
                         displayRelatedProducts(relatedProducts, productId);
