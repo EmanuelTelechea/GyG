@@ -233,8 +233,10 @@ input[type="search"]:focus {
 /* Cambiar el color del botón de búsqueda */
 #searchButton {
     background-color: #ffffff; /* Nuevo color de fondo */
-    color: #000000; /* Color del texto */
-    border: none; /* Quitar el borde */
+    color: #C49560; /* Color del texto */
+    border: 1px solid #C49560; /* Borde del botón */
+    border-radius: 0 5px 5px 0; /* Bordes redondeados */
+
 }
 
 #searchButton:hover {
