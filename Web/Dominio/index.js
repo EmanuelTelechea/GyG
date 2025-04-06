@@ -59,7 +59,7 @@ function scrollCarousel(slider, direction) {
 
 // Función para cargar productos destacados
 function loadFeaturedProducts() {
-  fetch("http://gyg-production.up.railway.app/api/destacados")
+  fetch("gyg-production.up.railway.app/api/destacados")
     .then((response) => response.json())
     .then((data) => {
       const productsSlider = document.getElementById("featured-products-slider");
@@ -111,7 +111,7 @@ function loadFeaturedProducts() {
 
 // Función para cargar productos en oferta
 function loadSaleProducts() {
-  fetch("http://gyg-production.up.railway.app/api/en-oferta")
+  fetch("gyg-production.up.railway.app/api/en-oferta")
     .then((response) => response.json())
     .then((data) => {
       const productsSlider = document.getElementById("sale-products-slider");
