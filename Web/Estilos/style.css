@@ -12,10 +12,12 @@ body {
     margin-right: auto;
     position: sticky; /* Hacer que el header sea fijo */
     top: 0; /* Posicionarlo en la parte superior */
-    z-index: 1000; /* Asegurarse de que esté por encima de otros elementos */
+    z-index: 1050; /* Asegurarse de que esté por encima de otros elementos */
+    background-color: #a07d4b; /* Fondo del navbar */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
     border-bottom: #000000;
     padding: 10px 0; /* Reducir el padding */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Reducir la sombra */
+    border-radius: 0; /* Quitar bordes redondeados en los costados */
 }
 .navbar-brand {
     font-weight: 700; /* Usar Poppins Bold */
@@ -27,19 +29,54 @@ body {
 .navbar-brand:hover {
     color: #FFFFFF; /* Color al pasar el ratón */
 }
-.nav-link {
-    color: #C49560; /* Color de los enlaces de navegación */
+.navbar .nav-link {
+    position: relative;
+    color: #000000; /* Color inicial del texto */
     font-weight: 500; /* Usar Poppins Regular */
-    font-size: large;  
+    font-size: large;
+    overflow: hidden; /* Ocultar el efecto fuera del botón */
+    transition: color 0.3s ease, background-color 0.3s ease;
 }
-.nav-link:hover {
-    color: #FFFFFF !important; /* Color al pasar el ratón */
+
+.navbar .nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #FFFFFF; /* Color del subrayado */
+    transition: width 0.4s ease, left 0.4s ease;
+}
+
+.navbar .nav-link:hover {
+    color: #FFFFFF !important; /* Cambiar el color del texto al pasar el ratón */
+}
+
+.navbar .nav-link:hover::before {
+    width: 100%; /* Expandir el subrayado completamente */
+    left: 0; /* Mover el inicio del subrayado */
 }
 .sidebar {
     background-color: #C49560; /* Fondo general del div */
     padding: 20px;
     border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para destacar */
 }
+
+.sidebar.collapse {
+    transition: height 0.3s ease, opacity 0.3s ease;
+}
+
+.sidebar h3 {
+    font-weight: 700; /* Usar Poppins Bold */
+    text-align: center;
+    color: #FFFFFF; /* Texto blanco */
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #FFFFFF; /* Línea divisoria */
+}
+
 .sidebar .nav-link {
     color: #FFFFFF; /* Letras blancas */
     font-weight: 500; /* Usar Poppins Medium */
@@ -63,15 +100,16 @@ body {
 }
 /* Product Cards */
 .product-card {
+    max-width: 300px; /* Reducir el ancho máximo */
+    height: auto; /* Ajustar la altura automáticamente */
+    margin: 0 auto; /* Centrar las tarjetas */
+    padding: 10px; /* Reducir el padding */
     border: none;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    height: 100%;
     background-color: #ffffff;
-    max-width: 300px; /* Limitar el ancho máximo de las tarjetas */
-    margin: 0 auto; /* Centrar las tarjetas */
   }
   
   .product-card:hover {
@@ -80,8 +118,8 @@ body {
   }
   
   .product-card img {
-    height: 200px;
-    object-fit: contain;
+    height: 150px; /* Reducir la altura de la imagen */
+    object-fit: cover; /* Ajustar la imagen para que se vea completa */
     padding: 1rem;
     background-color: #ffffff;
   }
@@ -93,15 +131,15 @@ body {
   
   .product-card .card-title {
     font-weight: 600;
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
+    font-size: 1rem; /* Reducir el tamaño de la fuente */
+    margin-bottom: 0.5rem; /* Reducir el margen inferior */
     color: #020813;
   }
   
   .product-card .card-text {
     color: #a07d4b;
     font-weight: 700;
-    font-size: 1.2rem;
+    font-size: 0.9rem; /* Reducir el tamaño de la fuente */
   }
   
   .product-card .discount-badge {
@@ -138,6 +176,15 @@ body {
     box-shadow: 0 4px 10px rgba(160, 125, 75, 0.3);
   }
   
+@media (max-width: 767.98px) {
+    .product-card {
+        max-width: 100%; /* Usar todo el ancho disponible */
+    }
+    .product-card img {
+        height: 120px; /* Reducir aún más la altura de la imagen */
+    }
+}
+
 .sort-button {
     background-color: #C49560; /* Fondo del botón */
     border: none;
@@ -153,7 +200,7 @@ body {
     .sidebar-toggle {
         display: block;
         margin-bottom: 20px;
-    }
+  }
 }
 @media (min-width: 768px) {
     .sidebar-toggle {
@@ -163,6 +210,24 @@ body {
         width: 400px; /* Adjust the width as needed */
     }
 }
+
+@media (min-width: 768px) {
+    .categories-container {
+        display: flex;
+        flex-direction: row; /* Alinear en fila */
+    }
+
+    .categories-sidebar {
+        flex: 0 0 20%; /* Ancho fijo para la barra lateral */
+        max-width: 20%;
+        margin-right: 20px; /* Espaciado entre la barra lateral y el contenido */
+    }
+
+    .categories-content {
+        flex: 1; /* Ocupa el resto del espacio */
+    }
+}
+
 .fw-bold {
     text-align: center;
     font-weight: 700; /* Usar Poppins Bold */
@@ -633,7 +698,7 @@ input[type="search"]:focus {
     width: 350px; /* Aumentar el ancho */
     background-color: #f8f9fa; /* Cambiar el color de fondo */
     border: 1px solid #ccc;
-    border-radius: 10px;
+    border-radius: 0 0 10px 10px; /* Solo bordes redondeados en la parte inferior */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: none;
     flex-direction: column;
@@ -951,7 +1016,7 @@ input[type="search"]:focus {
   right: 20px;
   width: 300px; /* Reducir el ancho */
   background-color: #ffffff;
-  border-radius: 10px;
+  border-radius: 0 0 10px 10px; /* Solo bordes redondeados en la parte inferior */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Reducir la sombra */
   display: none;
   flex-direction: column;
@@ -1162,6 +1227,69 @@ input[type="search"]:focus {
     padding: 0 30px;
   }
 }
+
+.product-card-container .product-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* Asegurar que la tarjeta ocupe todo el espacio disponible */
+}
+
+.product-card-container .product-image-container {
+    width: 100%;
+    height: 200px; /* Tamaño fijo para las imágenes */
+    overflow: hidden; /* Ocultar cualquier contenido que exceda el contenedor */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-card-container .product-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Asegurar que la imagen se adapte sin deformarse */
+}
+
+.product-card-container .card-body {
+    padding: 1rem;
+    text-align: center;
+    background-color: #ffffff; /* Fondo blanco para el contenido */
+}
+
+#mobileCategoryMenu {
+    background-color: #FFFFFF; /* Fondo blanco */
+    box-shadow: none; /* Quitar sombra */
+    padding: 20px; /* Espaciado interno */
+}
+
+#mobileCategoryMenu h3 {
+    font-weight: 700; /* Usar Poppins Bold */
+    text-align: center;
+    color: #000000; /* Texto negro */
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #000000; /* Línea divisoria negra */
+}
+
+#mobileCategoryMenu .nav-link {
+    color: #000000; /* Texto negro */
+    font-weight: 500; /* Usar Poppins Medium */
+    border-bottom: 1px solid #ccc; /* Línea de separación */
+    background-color: #FFFFFF; /* Fondo blanco */
+    border-radius: 5px;
+    padding: 10px;
+    transition: none; /* Quitar transición */
+}
+
+#mobileCategoryMenu .nav-link:last-child {
+    border-bottom: none; /* Quitar la línea de separación del último elemento */
+}
+
+#mobileCategoryMenu .nav-link:hover {
+    background-color: #FFFFFF; /* Mantener el fondo blanco */
+    color: #000000; /* Mantener el texto negro */
+}
+
 .modern-hero {
   position: relative;
   background-color: #f8f5f0;
@@ -1540,34 +1668,41 @@ input[type="search"]:focus {
   }
 }
 
-/* Navbar desplegable desde la derecha solo en dispositivos móviles */
+/* Navbar desplegable desde arriba solo en dispositivos móviles */
 @media (max-width: 991.98px) {
-  .navbar-collapse {
-    position: fixed;
-    top: 0;
-    right: -100%; /* Ocultar inicialmente */
-    height: 100%;
-    width: 75%; /* Ajustar el ancho del menú desplegable */
-    background-color: #ffffff; /* Fondo blanco */
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-    transition: right 0.3s ease; /* Animación suave */
-    z-index: 1050; /* Asegurar que esté por encima de otros elementos */
-  }
+    .navbar-collapse {
+        position: fixed;
+        top: -100%; /* Ocultar inicialmente */
+        left: 0;
+        height: 50%;
+        width: 100%; /* Ocupa todo el ancho */
+        background-color: #ffffff; /* Fondo blanco */
+        box-shadow: none; /* Quitar sombra */
+        transition: top 0.5s ease; /* Animación más lenta */
+        z-index: 1050; /* Asegurar que esté por encima de otros elementos */
+        border-radius: 0 0 10px 10px; /* Bordes redondeados solo en la parte inferior */
+    }
 
-  .navbar-collapse.show {
-    right: 0; /* Mostrar el menú */
-  }
+    .navbar-collapse.show {
+        top: 0; /* Mostrar el menú desde arriba */
+    }
 
-  .navbar-toggler {
-    z-index: 1100; /* Asegurar que el botón esté por encima del menú */
-  }
+    .navbar-toggler {
+        z-index: 1100; /* Asegurar que el botón esté por encima del menú */
+    }
 
-  .navbar-nav .nav-link {
-    padding: 1rem;
-    text-align: left;
-    font-size: 1.2rem;
-    border-bottom: 1px solid #ddd;
-  }
+    .navbar-nav .nav-link {
+        padding: 1rem;
+        text-align: left;
+        font-size: 1.2rem;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .navbar {
+        position: fixed; /* Fijo en dispositivos móviles */
+        width: 100%; /* Ocupa todo el ancho */
+        border-radius: 0; /* Sin bordes redondeados en la parte superior */
+    }
 }
 
 /* Estilo del navbar en dispositivos móviles */

@@ -1,32 +1,54 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Fetch all categories and populate the sidebar
+    // Fetch all categories and populate both sidebars
     fetch('https://gyg-production.up.railway.app/api/categorias')
         .then(response => response.json())
         .then(categories => {
             const sidebar = document.getElementById('categoryFilters');
-            sidebar.innerHTML = ''; 
+            const mobileSidebar = document.getElementById('categoryFiltersMobile');
+            if (sidebar && mobileSidebar) {
+                sidebar.innerHTML = ''; 
+                mobileSidebar.innerHTML = ''; 
 
-            // Add "Todos los Productos" link
-            const allProductsLink = document.createElement('a');
-            allProductsLink.className = 'nav-link';
-            allProductsLink.href = '#';
-            allProductsLink.innerHTML = 'Todos los Productos';
-            allProductsLink.addEventListener('click', function() {
-                fetchAllProducts();
-            });
-            sidebar.appendChild(allProductsLink);
-
-            // Add category links
-            categories.forEach(category => {
-                const categoryLink = document.createElement('a');
-                categoryLink.className = 'nav-link';
-                categoryLink.href = '#';
-                categoryLink.innerHTML = ` ${category.nombre}`;
-                categoryLink.addEventListener('click', function() {
-                    filterProductsByCategory(category.id);
+                // Add "Todos los Productos" link
+                const allProductsLink = document.createElement('a');
+                allProductsLink.className = 'nav-link';
+                allProductsLink.href = '#';
+                allProductsLink.innerHTML = 'Todos los Productos';
+                allProductsLink.addEventListener('click', function() {
+                    fetchAllProducts();
+                    closeMobileMenu(); // Cierra el menú móvil
                 });
-                sidebar.appendChild(categoryLink);
-            });
+                sidebar.appendChild(allProductsLink);
+
+                const allProductsLinkMobile = allProductsLink.cloneNode(true);
+                allProductsLinkMobile.addEventListener('click', function() {
+                    fetchAllProducts();
+                    closeMobileMenu(); // Cierra el menú móvil
+                });
+                mobileSidebar.appendChild(allProductsLinkMobile);
+
+                // Add category links
+                categories.forEach(category => {
+                    const categoryLink = document.createElement('a');
+                    categoryLink.className = 'nav-link';
+                    categoryLink.href = '#';
+                    categoryLink.innerHTML = category.nombre;
+                    categoryLink.addEventListener('click', function() {
+                        filterProductsByCategory(category.id);
+                        closeMobileMenu(); // Cierra el menú móvil
+                    });
+                    sidebar.appendChild(categoryLink);
+
+                    const categoryLinkMobile = categoryLink.cloneNode(true);
+                    categoryLinkMobile.addEventListener('click', function() {
+                        filterProductsByCategory(category.id);
+                        closeMobileMenu(); // Cierra el menú móvil
+                    });
+                    mobileSidebar.appendChild(categoryLinkMobile);
+                });
+            } else {
+                console.error('No se encontraron los contenedores de categorías.');
+            }
         })
         .catch(error => console.error('Error fetching categories:', error));
 
@@ -68,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function displayProducts(products) {
         const productList = document.getElementById('articulo-list');
         productList.innerHTML = ''; // Clear existing products
-        if (Array.isArray(products)) {
+        if (Array.isArray(products) && products.length > 0) {
             products.forEach(product => {
                 const imageUrl = product.imagenes.length > 0 ? product.imagenes[0] : 'default-image.jpg'; // Fallback image
                 const productCard = `
@@ -85,7 +107,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 productList.innerHTML += productCard;
             });
         } else {
-            console.error('No products found in the response.');
+            productList.innerHTML = `
+                <div class="col-12 text-center">
+                    <p class="text-muted">No se encontraron productos disponibles.</p>
+                </div>
+            `;
+        }
+    }
+
+    // Function to close the mobile menu
+    function closeMobileMenu() {
+        const mobileCategoryMenu = document.getElementById('mobileCategoryMenu');
+        if (mobileCategoryMenu) {
+            mobileCategoryMenu.classList.remove('show'); // Asegura que el menú móvil se cierre
         }
     }
 
@@ -115,7 +149,6 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => console.error('Error fetching products for sorting:', error));
     });
-
 
     // Function to filter products by search term
     function filterProductsBySearchTerm(searchTerm, products) {
