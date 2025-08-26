@@ -527,6 +527,22 @@ app.delete('/pedidos_personalizados/:id', async (req, res) => {
   }
 });
 
+app.get('/pedidos_personalizados/disponibles', async (req, res) => {
+  try {
+    const [rows] = await pool.query(`
+      SELECT pp.*
+      FROM pedidos_personalizados pp
+      LEFT JOIN detalle_ventas dv
+        ON pp.id = dv.personalizado_id
+      WHERE dv.personalizado_id IS NULL
+    `);
+    res.json(rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al obtener los pedidos personalizados disponibles' });
+  }
+});
+
 
 app.post('/api/contacto', (req, res) => {
     const { name, email, message } = req.body;
