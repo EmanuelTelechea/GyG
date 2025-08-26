@@ -367,12 +367,10 @@ app.post('/ventas', async (req, res) => {
 
           } else if (tipo === 'personalizado') {
               const { nombre, descripcion } = item;
-
-              const personalizadoId = personalizadoResult.insertId;
-
+              articulo_id = selectedProducto.id;
               // Insertar en detalle_ventas como producto personalizado
               query = 'INSERT INTO detalle_ventas (venta_id, personalizado_id, cantidad, precio_unitario, tipo) VALUES (?, ?, ?, ?, ?)';
-              values = [ventaId, personalizadoId, cantidad, precio_unitario, 'personalizado'];
+              values = [ventaId, articulo_id, cantidad, precio_unitario, 'personalizado'];
           }
 
           await connection.query(query, values);
