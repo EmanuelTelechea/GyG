@@ -384,8 +384,8 @@ app.post('/ventas', async (req, res) => {
       res.status(201).json({ message: 'Venta registrada', ventaId });
   } catch (error) {
       await connection.rollback();
-      console.error(error);
-      res.status(500).json({ error: 'Error al registrar la venta' });
+      console.error("Error en registrar venta:", error);
+      res.status(500).json({ error: error.message, stack: error.stack });
   } finally {
       connection.release();
   }
