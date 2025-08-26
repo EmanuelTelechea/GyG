@@ -368,12 +368,6 @@ app.post('/ventas', async (req, res) => {
           } else if (tipo === 'personalizado') {
               const { nombre, descripcion } = item;
 
-              // Insertar pedido personalizado
-              const [personalizadoResult] = await connection.query(
-                  'INSERT INTO pedidos_personalizados (nombre, descripcion, precio) VALUES (?, ?, ?)',
-                  [nombre, descripcion, precio_unitario]
-              );
-
               const personalizadoId = personalizadoResult.insertId;
 
               // Insertar en detalle_ventas como producto personalizado
