@@ -491,7 +491,7 @@ app.post('/pedidos_personalizados', async (req, res) => {
   }
 });
 
-app.get('/pedidos_personalizados/disponibles', async (req, res) => {
+app.get('/personalizados/disponibles', async (req, res) => {
   try {
     const [rows] = await pool.query(`
       SELECT pp.*
