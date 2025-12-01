@@ -491,6 +491,22 @@ app.post('/pedidos_personalizados', async (req, res) => {
   }
 });
 
+app.get('/pedidos_personalizados/disponibles', async (req, res) => {
+  try {
+    const [rows] = await pool.query(`
+      SELECT pp.*
+      FROM pedidos_personalizados pp
+      LEFT JOIN detalle_ventas dv
+        ON pp.id = dv.personalizado_id
+      WHERE dv.personalizado_id IS NULL
+    `);
+    res.json(rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al obtener los pedidos personalizados disponibles' });
+  }
+});
+
 app.put('/pedidos_personalizados/:id', async (req, res) => {
   const { id } = req.params;
   const { nombre, descripcion, medidas, precio } = req.body;
@@ -528,23 +544,6 @@ app.delete('/pedidos_personalizados/:id', async (req, res) => {
       res.status(500).json({ error: 'Error al eliminar el pedido personalizado' });
   }
 });
-
-app.get('/pedidos_personalizados/disponibles', async (req, res) => {
-  try {
-    const [rows] = await pool.query(`
-      SELECT pp.*
-      FROM pedidos_personalizados pp
-      LEFT JOIN detalle_ventas dv
-        ON pp.id = dv.personalizado_id
-      WHERE dv.personalizado_id IS NULL
-    `);
-    res.json(rows);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Error al obtener los pedidos personalizados disponibles' });
-  }
-});
-
 
 app.post('/api/contacto', (req, res) => {
     const { name, email, message } = req.body;
